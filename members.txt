@@ -2,9 +2,9 @@ Project WILD Maps Application Members
 
 We have very recently formed our group, so member participation is limited. As of now, all members are working on getting familiar with the previous map application, the database, and brainstorming which features and filters will be added. More specific contributions have been made, specified below.
 
-Jack Fitzpatrick - Had the original idea, and began work on the initial 3 tasks. Acquired the old maps database, covering tasks 3 and 7, although this database will need to be updated to the new schema.
+Jack Fitzpatrick - Had the original idea, and began work on the initial 3 tasks. Acquired the old maps database, covering tasks 3 and 7, although this database will need to be updated to the new schema. Contacted the previous developer, as well as current staff members for new functionality and improvement ideas. Created the initial basic ER design and database schema.
 
-Kyle Harvey - Heading UI and UX design. Focused mainly on task 4, while also considering sample SQL queries for task 5.
+Kyle Harvey - Heading UI and UX design. Focused mainly on task 4, while also considering sample SQL queries for task 5. Started an Amazon Web Services application page for development.
 
 Kalito Luna
 
