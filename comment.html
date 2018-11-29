@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Comments</title>
+<style type="text/css">
+html { overflow: hidden; }
+body { background: #f4f4f4;}
+body { overflow: hidden; padding: 0; margin: 0;
+width: 100%; height: 100%; font-family: Trebuchet MS, Trebuchet, Arial, sans-serif; }
+#footer { text-align:center; font-size:9px; color:#606060; }
+header {
+  padding: 20px;
+  text-align: center;
+  background: #333;
+  color: white;
+  font-size: 20px;
+}
+ul {
+    position: fixed;
+    top: 10;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+img.about{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 400px;
+}
+
+form {
+  padding-top: 50px;
+  width: 800px;
+}
+</style>
+
+
+</head>
+<body onload="init()">
+<div class="nav-container">
+   <nav class="nav-inner transparent">
+
+      <div class="navbar">
+         <div class="container">
+            <div class="row">
+
+              <div class="brand">
+                <header href="index.html">PMAPS: PWILD Marking/Annotating Pisgah Systematically</>
+              </div>
+
+              <div class="navicon">
+                <div class="menu-container">
+
+                  <div class="circle dark inline">
+                    <i class="icon ion-navicon"></i>
+                  </div>
+
+                  <div class="list-menu">
+                    <i class="icon ion-close-round close-iframe"></i>
+                    <div class="intro-inner">
+                     	<ul id="nav-menu">
+                     	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
+                       	 <li><a href="about.html">About</a></li>
+                       	 <li><a href="comment.html">Submit A Comment</a></li>
+                       	 <li><a href="contact.html">Contact</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+         </div>
+      </div>
+
+   </nav>
+</div>
+<form action="ThankYou.html">
+  <fieldset>
+    <legend>Comment details:</legend> 
+    First name:<br>
+    <input type="text" name="firstname">
+    <br>
+    Last name:<br>
+    <input type="text" name="lastname">
+    <br>
+    Comment:<br>
+    <textarea name="Comment" rows=5 cols=80>
+    </textarea>
+    <br>
+    Type:<br>
+    <select name="Type">
+    <option value="landmark">Landmark</option>
+    <option value="pro-tip">Pro-Tip</option>
+    <option value="safety">Safety</option>
+    <option value="campsite">Campsite</option>
+    <option value="water">Water</option>
+    <option value="funny-story">Funny Story</option>
+  </select>
+    <br>
+    Location:<br>
+    <input type="text" name="location">
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+  </fieldset>
+</form>
+<img src="images/psigah.jpg" class="about" alt="About">
+</body>
+</html>
