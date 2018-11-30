@@ -1,0 +1,26 @@
+Project WILD Maps Application Members
+
+===========
+MILESTONE 1
+===========
+
+We have very recently formed our group, so member participation is limited. As of now, all members are working on getting familiar with the previous map application, the database, and brainstorming which features and filters will be added. More specific contributions have been made, specified below.
+
+Jack Fitzpatrick - Had the original idea, and began work on the initial 3 tasks. Acquired the old maps database, covering tasks 3 and 7, although this database will need to be updated to the new schema. Contacted the previous developer, as well as current staff members for new functionality and improvement ideas. Created the initial basic ER design and database schema.
+
+Kyle Harvey - Heading UI and UX design. Focused mainly on task 4, while also considering sample SQL queries for task 5. Started an Amazon Web Services application page for development.
+
+Kalito Luna
+
+Samuel Appiah
+
+===========
+MILESTONE 2
+===========
+
+Jack Fitzpatrick - Acquired the production database. Created create.sql, defined constraints, and started creating triggers. Wrote the python script to convert the current database (in csv format) to the relevant SQL tables. Sent out Google forms to PWild staff members asking for advice and ideas for application functionality, and collected some useful ideas. Began working on necessary SQL update commands for the website.
+
+Kyle Harvey - I have been looking into how the previous application was setup using HTML. Since we plan to use a similar setup, I have been learning how their code runs, in order to identify the areas that we need to change to function with our new database. Started creating a PHP file that will continuously translate our Postgresql database into an xml file that can be read into the HTML file. 
+
+Kalito Luna - Working on SQL queries and understanding the previous application as well as learning PHP with Kyle to take data from csv file and make XML table to run queries.
+
