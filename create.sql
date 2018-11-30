@@ -40,7 +40,7 @@ CREATE TABLE RelevantFor
  trip CHAR(7) NOT NULL, -- add year?
  PRIMARY KEY (cid, trip),
  FOREIGN KEY (cid) REFERENCES Comment (cid),
- CHECK (trip = 'august' OR trip = 'march' OR trip = 'step' OR trip = 'unknown')
+ CHECK (trip = 'unknown' OR trip = 'august' OR trip = 'march' OR trip = 'step')
 );
 
 

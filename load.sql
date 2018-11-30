@@ -183,14 +183,10 @@ INSERT INTO Comment VALUES
 (2,'There''s a false path to the east here. Every time I''ve ever been at this point, the crew stops to debate which way to go. Scouting a minute down the false path reveals it''s not a real path, so it''s no big deal. But, the false path is usually muddy, so just keep that mind if it''s really cold or a crewling has super-unwaterproofed boots.','tip','3/16/2014 0:26:35','true',2,1),
 (3,'If facilitating solos at Flat Laurel, I think this is without a doubt the best place to set up base camp. You''ll know it when you see it. It''s huge. Like you can fit a whole Bearmuda triangle in the site. And it''s flat. And has a river. And bear hang trees. And good solo sites nearby. There''s another good site 2 minutes southeast on the trail, but this one is better. ','solos','3/16/2014 0:28:26','true',2,2),
 (4,'In August 2012 and August 2013, there were issues with bees at a point along this trail. I can''t say exactly where, but I would guess it was about half way between D Boone and Deep Gap. It was about 6 minutes past (coming from D Boone) a high impact site, and it was right by some steps made from logs.','safety','3/16/2014 0:37:37','true',2,3),
-(5,'(this point is for testing/demonstration purposes)
-
-Yeaaaahhhhh Boiiiiiii....HAWGS GONE WILD!!!!!!','vam','3/16/2014 0:46:53','true',0,4),
+(5,'(this point is for testing/demonstration purposes)\n\nYeaaaahhhhh Boiiiiiii....HAWGS GONE WILD!!!!!!','vam','3/16/2014 0:46:53','true',0,4),
 (6,'(this point is for testing/demonstration purposes)Mmmmm. Darn tootin good ice cream.','tip','3/16/2014 0:47:23','true',0,5),
 (7,'If you anticipate your crew being here, make sure to bring a sharpie on the trail.','tip','3/16/2014 3:50:16','true',2,6),
-(8,'There is a natural rockbed waterslide that is just across the street from the Cove gate and no one from the institutional memories of 2013 knew it existed (discovered August 2012, Aisha knows where it is!). From the road, go a few steps down the trail leading to fish hatch and there should be a small side trail leading down to a campsite. Keep following the path through the right side of the campsite going away from the road and you should end up at a river spot with a narrow waterfall rockslide leading into a swimming hole. 
-
-Mothers and their children were sliding down safely so our crew joined in on the fun, but it could be black zone to some. ','vam','3/16/2014 4:30:52','true',3,7),
+(8,'There is a natural rockbed waterslide that is just across the street from the Cove gate and no one from the institutional memories of 2013 knew it existed (discovered August 2012, Aisha knows where it is!). From the road, go a few steps down the trail leading to fish hatch and there should be a small side trail leading down to a campsite. Keep following the path through the right side of the campsite going away from the road and you should end up at a river spot with a narrow waterfall rockslide leading into a swimming hole. \n\nMothers and their children were sliding down safely so our crew joined in on the fun, but it could be black zone to some. ','vam','3/16/2014 4:30:52','true',3,7),
 (9,'Pipe for water located on the jeep track at the Black Balsam parking lot','water','3/16/2014 10:29:59','true',4,8),
 (10,'There isn''t much to be desired for camping spots around this area. So if crewlings are like yay gap we''ll stop there for the night, try to non-directly push them away from that thought. Horse cove gap is about the same as welll ','campsite','3/16/2014 10:43:26','true',5,9),
 (11,'Several high impact campsites. Small stream for water. Near the top of an awesome waterfall/cliff.','campsite','3/16/2014 11:23:12','true',6,10),
@@ -205,20 +201,8 @@ Mothers and their children were sliding down safely so our crew joined in on the
 (20,'The Rock Quarry!','water','3/16/2014 15:51:44','true',9,19),
 (21,'Daytime rock quarry parking','tip','3/16/2014 15:52:18','true',9,20),
 (22,'Midnight rock quarry parking','tip','3/16/2014 15:52:54','true',9,21),
-(23,'There''s a waterfall here which is one of my favorite places in Pisgah.
-
-Note: it may actually be at the next valley, "BM AKW 227" on the USGS map. I can''t actually remember - but if you''re taking this trail you''re gonna hit both, because there''s no other way to go.
-
-It''s - sublime. Because it''s one of those places that''s always empty. This trail is rarely taken and somehow seems more ''primordial'' than the others. You''ll be laying in a little pool of water on the top of the falls and staring up into the towering greenth and you''ll feel like you did on your first trip - like there''s no civilization for twenty miles in every direction.
-
-Also, we found a crayfish in the top of the falls here, which really makes me wonder. How could it have survived there? These streams filter down from the edge of the BRP. It and its brethren must have been in these hills for thousands or millions of years.
-
-Note that this trail is especially tedious to reach from the road, so don''t try anything silly.','vam','3/16/2014 16:51:14','true',10,22),
-(24,'There''s an excellent swimming hole around here which was dubbed ''Andy''s Bridge of Death'' years before I visited it - legend has it that someone named Andy broke their leg there by jumping off of the bridge.
-
-Jumping off of the rocks is safe and lovely (try it in March!). But jumping off the bridge - no. Don''t do that.
-
-I was never clear on whether it was here or a bit up the trail, or if the ''Yellowstone Falls'' marker is actually referring to it.','vam','3/16/2014 16:42:25','true',10,23),
+(23,'There''s a waterfall here which is one of my favorite places in Pisgah.\n\nNote: it may actually be at the next valley, \"BM AKW 227\" on the USGS map. I can''t actually remember - but if you''re taking this trail you''re gonna hit both, because there''s no other way to go.\n\nIt''s - sublime. Because it''s one of those places that''s always empty. This trail is rarely taken and somehow seems more ''primordial'' than the others. You''ll be laying in a little pool of water on the top of the falls and staring up into the towering greenth and you''ll feel like you did on your first trip - like there''s no civilization for twenty miles in every direction.\n\nAlso, we found a crayfish in the top of the falls here, which really makes me wonder. How could it have survived there? These streams filter down from the edge of the BRP. It and its brethren must have been in these hills for thousands or millions of years.\n\nNote that this trail is especially tedious to reach from the road, so don''t try anything silly.','vam','3/16/2014 16:51:14','true',10,22),
+(24,'There''s an excellent swimming hole around here which was dubbed ''Andy''s Bridge of Death'' years before I visited it - legend has it that someone named Andy broke their leg there by jumping off of the bridge.\n\nJumping off of the rocks is safe and lovely (try it in March!). But jumping off the bridge - no. Don''t do that.\n\nI was never clear on whether it was here or a bit up the trail, or if the ''Yellowstone Falls'' marker is actually referring to it.','vam','3/16/2014 16:42:25','true',10,23),
 (25,'Great VAM. It''s right on the trail, but isn''t obvious. You need to climb over and onto the other side of the rock. You know you''re at the spot I''m talking about because it''s two steps before/after the open field on this trail. ','vam','3/16/2014 17:55:42','true',2,24),
 (26,'Dank-ass (aka good) campsite a couple switchbacks up from Glocester down to your left as you head up to Pilot. Hidden behind a big rock, has an epic view.','campsite','3/16/2014 17:59:51','true',11,25),
 (27,'Water here ranges from a small brook to nothing, depending on rain fall. If any, it will cross under the Art Loeb near the A-frame turn off closest to Pilot.','water','3/16/2014 17:58:03','true',12,26),
@@ -247,10 +231,10 @@ I was never clear on whether it was here or a bit up the trail, or if the ''Yell
 (50,'Wall of Death...Hoka Hey','vam','3/17/2014 9:29:48','true',12,49),
 (51,'Geological Survey Benchmark','vam','3/17/2014 9:30:47','true',12,50),
 (52,'Geological Survey Benchmark','vam','3/17/2014 9:31:31','true',12,51),
-(53,'Food hang torn down by "Berney" the black bear. August 2013. Pack found next day coated in a metric ton of bear slobber, torn to shreds. Berney went for the pancake mix/oatmeal, bypassed the summer sausage (note: sausage had not yet been massaged).','general','3/17/2014 9:35:52','true',12,52),
+(53,'Food hang torn down by \"Berney\" the black bear. August 2013. Pack found next day coated in a metric ton of bear slobber, torn to shreds. Berney went for the pancake mix/oatmeal, bypassed the summer sausage (note: sausage had not yet been massaged).','general','3/17/2014 9:35:52','true',12,52),
 (54,'Enchanted forest--great tent/tarp sites. Step crewling may or may not have tossed his cookies (or in this case, his pesto pasta) here in 2012...','campsite','3/17/2014 9:37:43','true',12,53),
 (55,'Enchanted Forest--good place for the mongols to stay.','campsite','3/17/2014 9:38:22','true',12,54),
-(56,'Sam Knob Parking lot/toilet. Favored location for crazy jesus man. Typically a fair amount of drunk rednecks in August.  Site of the conclusion of the epic showdown "Bay wrastles the honey pot," August 2011. Watch for spiders in the toilets.','vam','3/17/2014 9:40:47','true',12,55),
+(56,'Sam Knob Parking lot/toilet. Favored location for crazy jesus man. Typically a fair amount of drunk rednecks in August.  Site of the conclusion of the epic showdown \"Bay wrastles the honey pot,\" August 2011. Watch for spiders in the toilets.','vam','3/17/2014 9:40:47','true',12,55),
 (57,'Old butt knob and dog loser knob, as the name entails, are not fun to hike and have really no good views. Better to go on the 363.','tip','3/17/2014 11:04:22','true',5,56),
 (58,'Across the road from the Looking Glass trailhead, there''s a really good water hole with a rock to jump from!','water','3/17/2014 11:44:10','true',0,57),
 (59,'Lolz no campsites anywhere over here','campsite','3/17/2014 11:46:10','true',0,58),
@@ -261,21 +245,16 @@ I was never clear on whether it was here or a bit up the trail, or if the ''Yell
 (64,'If you have crew members with bad joints or foot blisters, avoid going down this route because there is some aggressive downhill after old butt knob.  Take the 363 instead','tip','3/17/2014 12:09:42','true',0,63),
 (65,'To find the VAM you have to keep an eye out and climb some rocks, you will not find it if you stay on the main trail.','vam','3/17/2014 12:10:35','true',0,64),
 (66,'Beware the USGS is horribly confusing/unclear in this area. On some PWILD USGS there are no trails marked, and on some there''s a maze of trails marked.','general','3/17/2014 15:53:08','true',2,65),
-(67,'Sunny Point Cafe. So good.
-
-Parking directions from their website: We have a small parking lot adjacent to the restaurant, including two reserved accessible spaces. There is also an overflow lot next to our garden.
-Free street parking is available in marked places along Haywood Road in both directions and down Dorchester Street and State Street. Please take note of signed no parking zones, especially near intersections.','vam','3/17/2014 17:23:18','true',2,66),
+(67,'Sunny Point Cafe. So good.\n\nParking directions from their website: We have a small parking lot adjacent to the restaurant, including two reserved accessible spaces. There is also an overflow lot next to our garden.\nFree street parking is available in marked places along Haywood Road in both directions and down Dorchester Street and State Street. Please take note of signed no parking zones, especially near intersections.','vam','3/17/2014 17:23:18','true',2,66),
 (68,'Gear Locker','vam','3/17/2014 17:27:03','true',0,67),
-(69,'There is a great solo site behind a high impact site on the river near the waterfall. Be careful if you have solos during the weekend though, there might be randos. 
-Also, if you give someone the cave as a solo site, watch out for strangers ','solos','3/17/2014 22:04:59','true',0,68),
+(69,'There is a great solo site behind a high impact site on the river near the waterfall. Be careful if you have solos during the weekend though, there might be randos. \nAlso, if you give someone the cave as a solo site, watch out for strangers ','solos','3/17/2014 22:04:59','true',0,68),
 (70,'I always forget how steep this climb is until I''m on it and gasping for breath. Beware. Coming from Farlow Gap especially, getting over this mountain will take a while.','general','3/17/2014 22:29:20','true',7,69),
 (71,'AMAZING high impact campsite here. Flat, right next to a river, and lots of bearhang trees. Also a super cool suspension bridge.','campsite','3/17/2014 22:32:26','true',7,70),
 (72,'Bring two liters of water if you ever hike up Looking Glass...','general','3/17/2014 22:34:29','true',0,71),
 (73,'Nothing to see here folks, just one of my favorite places to raise trout and christmas trees in the summer months. ','vam','3/18/2014 0:11:27','true',9,72),
 (74,'You, my friend, are an adventurer. Keep being awesome and encourage others to similarly zoom out from a narrow perspective on life. ','general','3/18/2014 0:13:18','true',9,73),
 (75,'Some would say that Patagonia is the last wild setting on Earth. Obviously they never had you kids stay on their porch!','general','3/18/2014 0:15:11','true',9,74),
-(76,'Agreed with Krkr, great rock to jump off into a deep pool, although it is sometimes crowded on weekends. If you want to semi-nondirectively encourage nudity, use the alternate name of Skinny Dip Falls. 
-Also, there are a couple decent camp sites if you scout near the banks downstream.','vam','3/18/2014 0:57:24','true',18,75),
+(76,'Agreed with Krkr, great rock to jump off into a deep pool, although it is sometimes crowded on weekends. If you want to semi-nondirectively encourage nudity, use the alternate name of Skinny Dip Falls. \nAlso, there are a couple decent camp sites if you scout near the banks downstream.','vam','3/18/2014 0:57:24','true',18,75),
 (77,'Nice tent campsite on a sandy beach between the river and the Art Loeb. Good spot for an early morning pick-up at Davidson if you don''t want to pay to camp at Davidson River Campground. Downside: being able to see cars zoom by on 276. ','campsite','3/18/2014 1:06:32','true',18,76),
 (78,'In August 2013 we couldn''t find the trailhead for 109 - the trail is there but I don''t think it gets much use. Cross the river and bushwhack a bit up the (admittedly quite steep) bank, you''ll find 109 running parallel to the river like the NatGeo shows. Enjoy the spider webs!','tip','3/18/2014 1:17:29','true',18,77),
 (79,'Not marked on NatGeo or USGS, but there is a connector trail to Devils Courthouse that takes you over the tunnel. Good signage and very obvious, only a 5-10 minute walk off the Mountains to Sea Trail to get to the top of Devil''s Courthouse, instant VAM!','tip','3/18/2014 1:25:52','true',18,78),
@@ -293,8 +272,7 @@ Also, there are a couple decent camp sites if you scout near the banks downstrea
 (91,'The holy land of Mongolia','vam','5/16/2014 17:26:41','true',22,90),
 (92,'Did you know the capital of Djibouti is Djibouti?!','vam','5/16/2014 17:28:56','true',23,91),
 (93,'A Bedouin camp','vam','5/16/2014 17:36:50','true',24,92),
-(94,'This road is entitled "Saddle Gap Road." On the USGS it is marked as leading to Saddle Gap. Alas, it is extremely overgrown, and leads nowhere. Don''t lead hopeful crewlings up here in the middle of a night hike in the pouring rain.
-xoxo Stout and Grant','general','9/12/2014 17:33:50','true',25,93),
+(94,'This road is entitled \"Saddle Gap Road.\" On the USGS it is marked as leading to Saddle Gap. Alas, it is extremely overgrown, and leads nowhere. Don''t lead hopeful crewlings up here in the middle of a night hike in the pouring rain.\nxoxo Stout and Grant','general','9/12/2014 17:33:50','true',25,93),
 (95,'this climb is 10x steeper than it looks...lotsa fun with day 0 packs','tip','9/12/2014 17:46:44','true',0,94),
 (96,'THERE ARE NO SPOTS HERE FOR AUGUST. ','general','9/29/2014 22:50:21','true',26,95),
 (97,'aug 2014, 2 crewlings stung (i think by logs, but higher up from the area ari pointed out) be careful! ','general','9/29/2014 22:52:08','true',26,96),
@@ -307,19 +285,9 @@ xoxo Stout and Grant','general','9/12/2014 17:33:50','true',25,93),
 (104,'cell service definitely in the parking lot, suggested solo sites are on the loop coming out of the left of the parking lot and long the right trail (not through the meadow). suggest camping in the meadow; there''s cell service and flat ground, but watch our for poison ivy there and at solo sites','solos','8/27/2015 14:00:33','true',28,103),
 (105,'campsites are on the trail up devils courthouse paved trail on the trail that stems out to the left going to the mountain to sea trail. there is also one on the side of the parking lot off the rock face. these are not the best, overgrown, and have thorns, but if you go to the right once up the rock face and keep walking down the trail for a few minutes, you can find some ok ones','campsite','8/27/2015 14:02:58','true',28,104),
 (106,'bear hang trees extremely difficult to find','safety','8/27/2015 14:10:29','true',28,105),
-(107,'The trails here that we use for the fun run are poorly marked. Basically you just want to take the trail North as much as you can until you get to a road. You *will* get to a road (Road 225) if you never decide to take a trail South. When we did the route this year, the path we took looked nothing like the map and spat us out on the road in a v different location from where we wanted to be. Just take that road all the way East. NEVER. TURN. LEFT. 
-
-Also, DO NOT EXPECT TO DRIVE DOWN 225! This is how runners got lost in 2014. You can drive up 475B, but 225 is CLOSED. You''ll have to park at this intersection.
-
-So basically for the fun run, take the Cove Creek Trail north to 225, turn Right, follow 225 (which won''t be marked) to 475B, go down 475B, turn right on the paved road, *make sure that the babies run in the left lane against traffic because #safety, and then turn right up into Cove. This year (2015) the route was 9.5 miles because the route to get from Cove to 225 was pretty long.
-
-Also watch out for misogynist bear killing hunters that may heckle girls.','safety','8/27/2015 15:39:39','true',29,106),
+(107,'The trails here that we use for the fun run are poorly marked. Basically you just want to take the trail North as much as you can until you get to a road. You *will* get to a road (Road 225) if you never decide to take a trail South. When we did the route this year, the path we took looked nothing like the map and spat us out on the road in a v different location from where we wanted to be. Just take that road all the way East. NEVER. TURN. LEFT. \n\nAlso, DO NOT EXPECT TO DRIVE DOWN 225! This is how runners got lost in 2014. You can drive up 475B, but 225 is CLOSED. You''ll have to park at this intersection.\n\nSo basically for the fun run, take the Cove Creek Trail north to 225, turn Right, follow 225 (which won''t be marked) to 475B, go down 475B, turn right on the paved road, *make sure that the babies run in the left lane against traffic because #safety, and then turn right up into Cove. This year (2015) the route was 9.5 miles because the route to get from Cove to 225 was pretty long.\n\nAlso watch out for misogynist bear killing hunters that may heckle girls.','safety','8/27/2015 15:39:39','true',29,106),
 (108,'The Bradley creek trail head is kinda hard to find. There''s no sign or marker on it.  It''s a moderately steep trail coming off the south side of the road. Obvi look at the map  when you''re driving there. Its after the marked trail head on the north side of the road, and before the road blockage when you turn the corner. If you make it to some campsites called YG, that means yellow gap (too far). It is NOT through a campsite. Using parking lots to tell distance is ineffective (what even IS a parking lot in pisgah). Use the marked trail head to the north as a signal to slow down the convoy into search mode.','general','8/27/2015 22:16:20','true',30,107),
-(109,'There are some really awesome cliff overhangs here right where the trail splits off. Almost directly south of the intersection is a sheer cliff with some areas to sit and they''re surrounded by blueberry bushes. I definitely recommend spending at least a few moments there taking in the view and enjoying the bounty.
-
-If southbound, a left will take you to Shitfuck Ridge and a right will take you towards Devil''s Courthous.
-
-','vam','8/27/2015 23:36:09','true',31,108),
+(109,'There are some really awesome cliff overhangs here right where the trail splits off. Almost directly south of the intersection is a sheer cliff with some areas to sit and they''re surrounded by blueberry bushes. I definitely recommend spending at least a few moments there taking in the view and enjoying the bounty.\n\nIf southbound, a left will take you to Shitfuck Ridge and a right will take you towards Devil''s Courthous.\n\n','vam','8/27/2015 23:36:09','true',31,108),
 (110,'You might think there would be camping at a place with a name like Saddle Gap. You would be wrong.','campsite','8/30/2015 10:38:30','true',32,109),
 (111,'This is a tunnel. I believe tunnels are PWILD black zone. But in the winter the BRP might be closed, so then...it''s okay? I don''t know. But I''m marking it so that you think to discuss it before you hit the trail.','safety','5/27/2016 22:37:38','true',1,110),
 (112,'testy mctester','general','6/13/2016 20:31:19','true',33,111),
@@ -329,22 +297,14 @@ If southbound, a left will take you to Shitfuck Ridge and a right will take you 
 (116,'Art Annex','vam','6/23/2016 1:05:29','true',2,115),
 (117,'There''s a waterfall accessible from where the road and Art Loeb cross about a two minute walk North East. It was a good place for water August 2013 & 2015 but was dry 2016. ','water','9/24/2016 11:22:29','true',35,116),
 (118,'When coming up from 607 on August 2017, couldn''t find the 362 path - or if we didn''t, it''s very overgrown. Great high impact campsite by the river - unclear of safety if it''s raining, however. ','tip','3/6/2018 1:16:24','true',36,117),
-(119,'On the map, this maintenance road very clearly connects with the Art Loeb. In real life, it very clearly doesn''t. 
-
-You either have to do some minor bushwhacking 200 feet up a hill to find the Art Loeb or (possibly, we didn''t do this) walk along the dried up creek until you find the trail. It''s hard to spot but look for the creek and the switchback, if you start walking southwest, you''ve probably gone too far. ','tip','3/19/2018 12:07:11','true',36,118),
-(120,'If necessary, the road widens enough along this route that you can set up a tent, although it is hard to put stakes in the ground due to rocks. In 2018, the road was clearly not being used and we did not see any cars. 
-
-There is also a mysterious trail on both sides of the road here that is well-maintained. With packs on, it probably takes ~30-45 mins from the earlier Art Loeb non-intersection. It is not the Art Loeb. I cannot identify it on the map. It might eventually meet up w the Art Loeb but definitely not for a while. ¯\_(ツ)_/¯  ','campsite','3/19/2018 12:17:18','true',36,119),
-(121,'It takes about 2 hours (with many breaks) to get to the top of Looking Glass and about 45 minutes to get down without stopping.
-March 2018','vam','3/21/2018 13:58:42','true',37,120),
+(119,'On the map, this maintenance road very clearly connects with the Art Loeb. In real life, it very clearly doesn''t. \n\nYou either have to do some minor bushwhacking 200 feet up a hill to find the Art Loeb or (possibly, we didn''t do this) walk along the dried up creek until you find the trail. It''s hard to spot but look for the creek and the switchback, if you start walking southwest, you''ve probably gone too far. ','tip','3/19/2018 12:07:11','true',36,118),
+(120,'If necessary, the road widens enough along this route that you can set up a tent, although it is hard to put stakes in the ground due to rocks. In 2018, the road was clearly not being used and we did not see any cars. \n\nThere is also a mysterious trail on both sides of the road here that is well-maintained. With packs on, it probably takes ~30-45 mins from the earlier Art Loeb non-intersection. It is not the Art Loeb. I cannot identify it on the map. It might eventually meet up w the Art Loeb but definitely not for a while. ¯\_(ツ)_/¯  ','campsite','3/19/2018 12:17:18','true',36,119),
+(121,'It takes about 2 hours (with many breaks) to get to the top of Looking Glass and about 45 minutes to get down without stopping.\nMarch 2018','vam','3/21/2018 13:58:42','true',37,120),
 (122,'Also could not find the 362, and we looked for like an hour. map makes it seem like it should be across the river at the junction of the two that intersect here, but there''s nothing over there.','campsite','3/21/2018 13:59:35','true',38,121),
 (123,'Connecter trail sign to Devil''s Courthouse is broken so isn''t obvious anymore, but the bottom half is still there! Just look for the knee-high broken wooden sign. ','vam','3/21/2018 14:00:25','true',39,122),
-(124,'You go down a very steep downhill trail and about 50 meters of a "gap" and then another steep uphill trail. There are two campsite within this small gap and there isn''t camping until you get to Pressley Gap
-March 2018','campsite','3/21/2018 14:00:46','true',37,123),
-(125,'Great camping site right at the intersection of this road and trail
-March 2018','campsite','3/21/2018 14:01:28','true',37,124),
-(126,'Also the first place to get water between here and Turkey Pen on 322. Head west on the gravel road and you''ll get to a stream along the 112 trail
-March 2018','water','3/21/2018 14:02:23','true',37,124),
+(124,'You go down a very steep downhill trail and about 50 meters of a \"gap\" and then another steep uphill trail. There are two campsite within this small gap and there isn''t camping until you get to Pressley Gap\nMarch 2018','campsite','3/21/2018 14:00:46','true',37,123),
+(125,'Great camping site right at the intersection of this road and trail\nMarch 2018','campsite','3/21/2018 14:01:28','true',37,124),
+(126,'Also the first place to get water between here and Turkey Pen on 322. Head west on the gravel road and you''ll get to a stream along the 112 trail\nMarch 2018','water','3/21/2018 14:02:23','true',37,124),
 (127,'This southern trail is actually off of 276 a little ways east of the Big East Fork trailhead/sign. You can''t see it from the parking lot, but if you go east on the road and up around the curve you''ll see another small parking lot with a very clear trail.','general','3/21/2018 14:02:40','true',38,125),
 (128,'In March 2018, the sign for the Devil''s Courthouse Connector trail was broken/missing. To find it, look for the intersection of three trails and a broken half-sign at the intersection- that''s your connector trail','general','3/21/2018 14:05:26','true',38,126),
 (129,'Cave is approximately here. Look for a steep side-trail on your left and a large waterfall in the distance. Cave is on the spur trail on the way to the waterfall. If not many people around, best to leave the packs at the top of the spur trail if hiking down to see this one.','general','3/21/2018 14:10:35','true',38,127),
