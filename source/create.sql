@@ -3,7 +3,7 @@ CREATE TABLE Person
  pid int NOT NULL,
  name VARCHAR(256) NOT NULL,
  year DECIMAL(4,0),
- email VARCHAR(256),
+ email VARCHAR(256) UNIQUE,
  PRIMARY KEY (pid)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE RelevantFor
  trip CHAR(7) NOT NULL, -- add year?
  PRIMARY KEY (cid, trip),
  FOREIGN KEY (cid) REFERENCES Comment (cid),
- CHECK (trip = 'unknown' OR trip = 'august' OR trip = 'march' OR trip = 'step')
+ CHECK (trip = 'august' OR trip = 'march' OR trip = 'step' OR trip = 'unknown')
 );
 
 

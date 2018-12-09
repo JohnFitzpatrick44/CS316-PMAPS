@@ -59,7 +59,7 @@ for x in range(1,len(timestamp)-1):
 		cat = 'campsite'
 	if category[x] == 'Solos':
 		cat = 'solos'
-	commentEntries.append('(%d,\'%s\',\'%s\',\'%s\',\'true\',%d,%d),\n' % (x,description[x].replace('\'','\'\'').replace('\n','\\n').replace('"','\\"'),cat,timestamp[x],personIDs.index(name[x]),placeIDs.index(location[x])))
+	commentEntries.append('(%d,\'%s\',\'%s\',\'%s\',\'true\',%d,%d),\n' % (x,description[x].replace('\'','\'\''),cat,timestamp[x],personIDs.index(name[x]),placeIDs.index(location[x])))
 	for month in relevant[x].split(', '):
 		relevantEntries.append('(%d,\'%s\'),\n' % (x, month.lower()))
 
