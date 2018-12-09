@@ -9,8 +9,8 @@
   $text = $_POST['text'];		// INPUT: text, type, name, x, y
   $name = $_POST['name'];
   $type = $_POST['type'];
-  $lng = $_POST['longitude'];
-  $lat = $_POST['lattitude'];
+  $lat = $_POST['longitude']; //REVERSED BUG
+  $lng = $_POST['lattitude'];
 ?>
 
 <?php
