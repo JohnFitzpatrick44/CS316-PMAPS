@@ -3,7 +3,7 @@ CREATE TABLE Person
  pid int NOT NULL,
  name VARCHAR(256) NOT NULL,
  year DECIMAL(4,0),
- email VARCHAR(256) UNIQUE,
+ email VARCHAR(256),
  PRIMARY KEY (pid)
 );
 

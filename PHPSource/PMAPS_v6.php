@@ -308,34 +308,47 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(trailControlDiv);
 	}
 	function showInputFormWindow(event){
-		var contentString = "<table>" +
-				"<tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>" +
-				"<tr><td>Marker Description:</td> <td><textarea id='markerDescription'></textarea></td> </tr>" +
-				"<tr><td>Category:</td> <td><input list='category' id='categories'>" +
-				"<datalist id='category'>" +
-				"<option value='VAM (View Appreciation Moment)'>" +
-				"<option value='Waterfall'>" +
-				"<option value='Water'>" +
-				"<option value='Safety'>" +
-				"<option value='Campsite'>" +
-				"<option value='Pro-Tip!'>" +
-				"<option value='Landmark'>" +
-				"<option value='Funny Story'>" +
-				"<option value='Solos'>" +
-				"</datalist></td></tr>" +
-                "<tr><td></td><td><input type='button' value='Save & Close' onclick='saveData()'/></td></tr>";
+		var contentString = 
+			"<div><h3>Submit a Comment</h3>" + 
+				"<form action=\"saveData.php\" method=\"post\">" +
+					"Name: <input type=\"text\" name=\"name\"><br>" +
+					"Lng: <input type=\"text\" name=\"longitude\"><br>" +
+					"Lat: <input type=\"text\" name=\"lattitude\"><br>" +
+					"Comment:<br><textarea name=\"text\"></textarea><br>" +
+					"Category: <input list=\"category\" name=\"type\">" +
+					"<datalist id=\"category\">" +
+						"<option value=\"VAM\">" +
+						"<option value=\"Water\">" +
+						"<option value=\"Safety\">" +
+						"<option value=\"Campsite\">" +
+						"<option value=\"Tip\">" +
+						"<option value=\"Solos\">" +
+						"<option value=\"General\">" +
+					"</datalist>" +
+					"<input type=\"submit\" value=\"Submit\">" +
+				"</form>" +
+			"</div>";
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, usersMarker);
 	}
-	function saveData(){ //What to do when the user hits the "submit" button on the user input form.
+	/*function saveData(){ //What to do when the user hits the "submit" button on the user input form.
 		// Awkwardly pulls what the user wrote on the input form
-		var name = document.getElementById("name").value;
-		var description = document.getElementById("markerDescription").value;
-		var cat = document.getElementById("categories").value;
-		
+		var name = document.getElementById("nameField").value;
+		var description = document.getElementById("textField").value;
+		var cat = document.getElementById("categoryField").value;
 		var pos = usersMarker.getPosition();
-		var d = new Date();
-		var dateString = (d.getMonth()+1)+"-"+d.getDate()+"-"+d.getFullYear();
+
+		$.post("saveData.php",
+		{
+			name: name,
+			text: description,
+			type: cat,
+			longitude: pos.lng(),
+			lattitude: pos.lat(),
+		},
+		function(data,status) {
+			if(!status) alert(data);
+		});
 		
 		// Adds the data to the database
 		//firebase.push({lat: pos.lat(),
@@ -346,7 +359,16 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		//				date: dateString});
 						
 		infoWindow.close(); // If we're saving data, we must be done with the input form, so let's close it.
+	}*/
+
+
+	function newCommentForm() 
+	{
+		showInputFormWindow("click");
+
 	}
+
+
 	function getDot(category) // Given the category of a data point, spits out the appropriate color of the data point
 	{
 		if(category == "vam") //purple
@@ -457,7 +479,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                      	<ul id="nav-menu">
                      	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
                        	 <li><a href="about.html">About</a></li>
-                       	 <li><a href="comment.html">Submit A Comment</a></li>
+                       	 <li><button onclick="newCommentForm()">Submit A Comment</button></li>
                        	 <li><a href="contact.html">Contact</a></li>
                       </ul>
                     </div>
