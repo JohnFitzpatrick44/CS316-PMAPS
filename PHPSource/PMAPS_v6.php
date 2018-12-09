@@ -350,19 +350,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 	function getDot(category) // Given the category of a data point, spits out the appropriate color of the data point
 	{
 		if(category == "vam") //purple
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAi0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NMov6vzp99f8zVWfAdKBh4H+g+EyYorQ027T//2f+x8CxFrEghbEgRQcOFB/Aqmhv4V6Qor0gRQ8ftj/Equh2822QottEmxQLshubohCjEJCiEJjj54N8tzFrI9h36zLWwXw3jQENgMJpIzSc1iGHEwBt95qDejjnKAAAAABJRU5ErkJggg==";
+			return "waterfall.png";
 		else if(category == "water") //blue
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC81M4v6n56++n9V1RkwbWgY+B8oPhOmKM3WNu3/zJn/MbCFRSxIYSxI0YHi4gNYFRUW7gUp2gtS9LC9/SFWRc3Nt0GKbhNtUizIbmyKjIxCQIpCYI6fD/JdVtZGsO8yMtbBfDeNAQ2AwmkjNJzWIYcTAMk+i9OhipcQAAAAAElFTkSuQmCC";
+			return "water.png";
 		else if(category == "safety") //yellow
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAi0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NijL7v3p1+v8zZ6rAdGCg4X+g+EyYorS0NNv////PxMCxsRYghbEgRQcOHCjGqmjv3kKQor0gRQ8fPmzHquj27WaQottEmxQLshubopAQI5CiEJjj54N8t3FjFth369ZlwHw3jQENgMJpIzSc1iGHEwB8p5qDBbsHtAAAAABJRU5ErkJggg==";
+			return "safety.png";
 		else if(category == "campsite")  //green
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiElEQVR42mNgQIAoIF4NxGegdCCSHAMzEC81izL7n746/X/VmSowbRho+B8oPhOmKM02zfb/TCzQItYCpDAWpOhA8YFirIoK9xaCFO0FKXrY/rAdq6Lm280gRbeJNikWZDc2RUYhRiBFITDHzwf5LmtjFth3GesyYL6bxoAGQOG0ERpO65DDCQDX7ovT++K9KQAAAABJRU5ErkJggg==";
+			return "camp.png";
 		else if(category == "tip") //red
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NUlH5v9rF5f+ZoCAwHaig8B8oPhOmKC1NU/P//7Q0DByrqgpSGAtSdOCAry9WRXt9fECK9oIUPXwYFYVV0e2ICJCi20SbFAuyG5uiECUlkKIQmOPng3y30d0d7Lt1bm4w301jQAOgcNoIDad1yOEEAFm9fSv/VqtJAAAAAElFTkSuQmCC";
+			return "info.png";
 		else if(category == "solos")//brown+
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NslL5v7rU+f+Z3iAwHWii8B8oPhOmKC3NSfP//01pGDjWRhWkMBak6MCBVl+sivY2+4AU7QUpevhwThRWRbdnRIAU3SbapFiQ3dgUhZgpgRSFwBw/H+S7jVVuYN+tq3CD+W4aAxoAhdNGaDitQw4nAFZ+h+ARB/VOAAAAAElFTkSuQmCC";
+			return "solo.png";
 		else //darkgrey+
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAgElEQVR42mNggAJFRcUWdXX16yoqKs9AtJKSUh0DEmDW0NC44mhr+9/e3h6OHW1s/mtqap4Dq5CXl+91QlMAVwgUV1BQaGdQVVV9iE0BDKupqd1nUFZW/uCARxFQ/i1xJoHsdMTjJqAvG8COB/ruAg7fnUUOBlg43YSG0w3kcAIAxcVqHwlKq6YAAAAASUVORK5CYII=";
+			return "general.png";
 	}	
 	function windowControlTrail(e, infoWindow, map) {
 		e.infoWindowHtml = "<div class='googft-info-window'>"+
