@@ -230,58 +230,17 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		map.mapTypes.set('Nat Geo', natGeo);
 		map.mapTypes.set('USGS', usgsStolen);
 		
-// Things above this point deal with the maps. Things below this point deals with the data.
-		
-		/*var trailDataLayer = new google.maps.Data();
-		trailDataLayer.loadGeoJson('trails/srw_data.geojson');
-		trailDataLayer.loadGeoJson('trails/graveyard.geojson');
-		trailDataLayer.loadGeoJson('trails/davidson.geojson');
-		trailDataLayer.loadGeoJson('trails/blueRidge.geojson');
-		trailDataLayer.loadGeoJson('trails/blackBalsam.geojson');
-		trailDataLayer.loadGeoJson('trails/mills.geojson');
-		trailDataLayer.loadGeoJson('trails/farlow.geojson');
-		trailDataLayer.loadGeoJson('trails/mount2sea.geojson');
-		trailDataLayer.addListener('click', function(event) {
-			var content = "<div class='googft-info-window'>"+
-							"<h1>"+event.feature.getProperty('name')+"</h1>"+
-							"<i>"+event.feature.getProperty('segment')+"</i>"+
-							"</div>";
-			infowindow.setContent(content);
-			infowindow.setPosition(event.feature.getGeometry().get()); //This doesn't work. This would be right if it were points, not trails.
-			infowindow.open(map);
-		});
-		trailDataLayer.setMap(map);*/
+
 		
 		// A data layer to hold all the data people have added
 		var markerLayer = new google.maps.Data();
-		
-		// Add everything in the database to the data layer
-		//firebase.on("child_added", function(snapshot, prevChildKey) {
-		//	var latwanted = snapshot.val().lat;
-		//	var lonwanted = snapshot.val().lon;
-	//		var geowanted = new google.maps.Data.Point({lat: latwanted, lng: lonwanted});
-	//		var propswanted = {name: snapshot.val().name, description: snapshot.val().description, category: snapshot.val().category, date: snapshot.val().date};
-			
-		//	markerLayer.add({geometry: geowanted, properties: propswanted});
-		//});
 
-
-		var geowanted;
-		var propswanted;
-
-		<?php 
-			while($comrow = $comment_array->fetch()) {
-				$lat = $comrow['lattitude'];
-				$lon = $comrow['longitude'];
-				$nam = $comrow['name'];
-				$tex = $comrow['text'];
-				$typ = $comrow['type'];
-				$tim = $comrow['timestamp'];
-				echo "geowanted = new google.maps.Data.Point({lat: " . $lon . ", lng: " . $lat . "});\n";
-				echo "propswanted = {name: \"" . $nam . "\", description: \"" . $tex . "\", category: \"" . $typ . "\", date: \"" . $tim . "\"};\n";
-				echo "markerLayer.add({geometry: geowanted, properties: propswanted});\n";
-			}
-		?>		
+		var commentArray = <?php echo json_encode($comment_array->fetchAll(PDO::FETCH_ASSOC)); ?>;
+		commentArray.forEach(function(comment) {
+			var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
+			var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
+			markerLayer.add({geometry: geowanted, properties: propswanted});
+		});
 
 		// Color the data layer based on the category of the data, and give each point roll over text
 		markerLayer.setStyle(function(feature) {
