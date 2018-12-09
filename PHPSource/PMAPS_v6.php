@@ -97,6 +97,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ["map", "table"]});
     </script>
+<script src="jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	var map;
 	var mapBounds = new google.maps.LatLngBounds(
@@ -207,6 +208,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		isPng: true
 	});
 	var trailLayer;
+	var markerLayer;
 	//var firebase = new Firebase("https://api-project-343670332138.firebaseio.com");
 	function init() {
 		var opts = {
@@ -233,7 +235,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 		
 		// A data layer to hold all the data people have added
-		var markerLayer = new google.maps.Data();
+		markerLayer = new google.maps.Data();
 
 		var commentArray = <?php echo json_encode($comment_array->fetchAll(PDO::FETCH_ASSOC)); ?>;
 		commentArray.forEach(function(comment) {
@@ -310,12 +312,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 	function showInputFormWindow(event){
 		var contentString = 
 			"<div><h3>Submit a Comment</h3>" + 
-				"<form action=\"saveData.php\" method=\"post\">" +
-					"Name: <input type=\"text\" name=\"name\"><br>" +
-					"Lng: <input type=\"text\" name=\"longitude\"><br>" +
-					"Lat: <input type=\"text\" name=\"lattitude\"><br>" +
-					"Comment:<br><textarea name=\"text\"></textarea><br>" +
-					"Category: <input list=\"category\" name=\"type\">" +
+				"<form>" +
+					"Name: <input type=\"text\" id=\"nameField\"><br>" +
+					"Comment:<br><textarea id=\"textField\"></textarea><br>" +
+					"Category: <input list=\"category\" id=\"typeField\">" +
 					"<datalist id=\"category\">" +
 						"<option value=\"VAM\">" +
 						"<option value=\"Water\">" +
@@ -325,17 +325,17 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 						"<option value=\"Solos\">" +
 						"<option value=\"General\">" +
 					"</datalist>" +
-					"<input type=\"submit\" value=\"Submit\">" +
+					"<input type=\"button\" value=\"Submit\" onclick=\"saveData()\">" +
 				"</form>" +
 			"</div>";
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, usersMarker);
 	}
-	/*function saveData(){ //What to do when the user hits the "submit" button on the user input form.
+	function saveData(){ //What to do when the user hits the "submit" button on the user input form.
 		// Awkwardly pulls what the user wrote on the input form
 		var name = document.getElementById("nameField").value;
 		var description = document.getElementById("textField").value;
-		var cat = document.getElementById("categoryField").value;
+		var cat = document.getElementById("typeField").value;
 		var pos = usersMarker.getPosition();
 
 		$.post("saveData.php",
@@ -347,7 +347,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			lattitude: pos.lat(),
 		},
 		function(data,status) {
-			if(!status) alert(data);
+			location.reload();
+			alert(data);
 		});
 		
 		// Adds the data to the database
@@ -359,14 +360,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		//				date: dateString});
 						
 		infoWindow.close(); // If we're saving data, we must be done with the input form, so let's close it.
-	}*/
-
-
-	function newCommentForm() 
-	{
-		showInputFormWindow("click");
-
 	}
+
 
 
 	function getDot(category) // Given the category of a data point, spits out the appropriate color of the data point
@@ -479,7 +474,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                      	<ul id="nav-menu">
                      	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
                        	 <li><a href="about.html">About</a></li>
-                       	 <li><button onclick="newCommentForm()">Submit A Comment</button></li>
+                       	 <li><button>Submit A Comment</button></li>
                        	 <li><a href="contact.html">Contact</a></li>
                       </ul>
                     </div>
