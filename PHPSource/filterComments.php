@@ -4,6 +4,7 @@
   // array/field should be empty, not set, or "" for no input
 
   $logic = ' ';
+  $relevant = false;
 
   if(isset($_POST['name']) && is_array($_POST['name'])) {
     $logic = $logic . '(';
@@ -34,8 +35,10 @@
       $logic = $logic . 'trip=\'' . $t . '\' OR ';
     }
     $logic = $logic . 'false) AND ';
+    $relevant = true;
   } else if($_POST['trip'] != "" ) {
     $logic = $logic . 'trip=\'' . $_POST['trip'] . '\' AND ';
+    $relevant = true;
   }
 
   if(isset($_POST['maxlng']) && is_numeric($_POST['maxlng'])) {
@@ -74,7 +77,15 @@
   }
   try {
 
-    $statement = $dbh->query('SELECT DISTINCT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place,RelevantFor WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND Comment.cid = RelevantFor.cid AND ' . $logic);
+    $query = '';
+
+    if($relevant) {
+      $query = 'SELECT DISTINCT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place,RelevantFor WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND Comment.cid = RelevantFor.cid AND ' . $logic;
+    } else {
+      $query = 'SELECT DISTINCT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND ' . $logic;
+    }
+
+    $statement = $dbh->query($query);
 
     echo json_encode($statement->fetchAll(PDO::FETCH_ASSOC));
 
