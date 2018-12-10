@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html><head>Filter<br></head>
 
-<input type="radio" onclick="filter('Category')" name=category checked>Landmark<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Pro-Tip!<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Solos<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Safety<br>
-<input type="radio" onclick="filter('Category')" name=category checked>VAM<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Waterfall<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Water<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Campsite<br>
-<input type="radio" onclick="filter('Category')" name=category checked>Maps<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Landmark<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Pro-Tip!<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Solos<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Safety<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>VAM<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Waterfall<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Water<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Campsite<br>
+<input type="checkbox" onclick="filter('Category')" name=category checked>Maps<br>
 
 <?php
 	try {
@@ -27,13 +27,14 @@
 <script>
 function filt() {
 
+  var list = [];
   var filter = <?php echo json_encode($filter->fetchAll(PDO::FETCH_ASSOC)); ?>;
-  filter.forEach(function(comment) {
-    if(document.getElementById('button').onclick = function() {
-      var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
-      var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
+  filter.forEach(function() {
+    if(document.getAttribute('type').onclick = function() {
+      list.push("filter");
+      var geowanted = new google.maps.Data.Point({lat: parseFloat(filter.longitude), lng: parseFloat(filter.lattitude)});		// Issue here: lat and lng are switched
+      var propswanted = {name: filter.name, description: filter.text, category: filter.type, date: filter.timestamp};
       markerLayer.add({geometry: geowanted, properties: propswanted});)
   });
-
 </script>
 </html>
