@@ -1,6 +1,3 @@
-<html>
-<body>
-
 <?php
   if (!isset($_POST['text']) || !isset($_POST['name']) || !isset($_POST['type']) || !isset($_POST['longitude']) || !isset($_POST['lattitude'])) {
     echo "You need to fill out all form items. Please try again.";
@@ -59,10 +56,8 @@
   } catch (Exception $e) {
     echo $e->getMessage();
     $dbh->rollBack();
-    die($e->getMessage());
+    die();
   }
 
 ?>
-Database updated. Return to PMAPS <a href="PMAPS_v6.php" >here.</a>
-</body>
-</html>
+Comment saved.

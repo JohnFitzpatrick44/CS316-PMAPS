@@ -245,14 +245,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		});
 
 		// Color the data layer based on the category of the data, and give each point roll over text
-		markerLayer.setStyle(function(feature) {
+		markerLayer.setStyle(function(feature) { 
 			return ({icon: getDot(feature.getProperty('category')),
-					title: feature.getProperty('description')});
+					title: feature.getProperty('description')}); 
 		});
 		
 		// When the data layer is clicked on, display the appropriate data
 		var infowindow = new google.maps.InfoWindow();
-		markerLayer.addListener('click', function(event) {
+		markerLayer.addListener('click', function(event) { 
 			var timeStamp = event.feature.getProperty('date');
 			var markerDescription = event.feature.getProperty('description');
 			var contributorName = event.feature.getProperty('name');
@@ -315,16 +315,15 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 				"<form>" +
 					"Name: <input type=\"text\" id=\"nameField\"><br>" +
 					"Comment:<br><textarea id=\"textField\"></textarea><br>" +
-					"Category: <input list=\"category\" id=\"typeField\">" +
-					"<datalist id=\"category\">" +
-						"<option value=\"VAM\">" +
-						"<option value=\"Water\">" +
-						"<option value=\"Safety\">" +
-						"<option value=\"Campsite\">" +
-						"<option value=\"Tip\">" +
-						"<option value=\"Solos\">" +
-						"<option value=\"General\">" +
-					"</datalist>" +
+					"Category: <select id=\"typeField\">" +
+						"<option value=\"general\">General</option>" +
+						"<option value=\"vam\">VAM</option>" +
+						"<option value=\"water\">Water</option>" +
+						"<option value=\"safety\">Safety</option>" +
+						"<option value=\"campsite\">Campsite</option>" +
+						"<option value=\"tip\">Tip</option>" +
+						"<option value=\"solos\">Solos</option>" +
+					"</select>" +
 					"<input type=\"button\" value=\"Submit\" onclick=\"saveData()\">" +
 				"</form>" +
 			"</div>";
@@ -338,6 +337,11 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		var cat = document.getElementById("typeField").value;
 		var pos = usersMarker.getPosition();
 
+		if(name == "" || description == "" || cat == "") {
+			alert("Please fill all fields.");
+			return;
+		}
+
 		$.post("saveData.php",
 		{
 			name: name,
@@ -350,17 +354,43 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			location.reload();
 			alert(data);
 		});
-		
-		// Adds the data to the database
-		//firebase.push({lat: pos.lat(),
-		//				lon: pos.lng(),
-		//				name: name,
-		//				description: description,
-		//				category: cat,
-		//				date: dateString});
 						
 		infoWindow.close(); // If we're saving data, we must be done with the input form, so let's close it.
 	}
+
+	function filterCommentsByType()
+	{
+		var type = document.getElementById("typeFilterField").value;
+		filterComments("",type,"","","","","");
+	}
+
+	function filterComments(names, types, trips, minlat, maxlat, minlng, maxlng)	// Time not implemented client side yet 
+	{
+		markerLayer.forEach(function(feature) {
+			markerLayer.remove(feature);
+		});
+
+		$.post("filterComments.php",
+		{
+			name: names,
+			type: types,
+			trip: trips,
+			minlat: minlat,
+			maxlat: maxlat,
+			minlng: minlng,
+			maxlng: maxlng
+		},
+		function(data,status) {
+			var decoded = $.parseJSON(data);
+			decoded.forEach(function(comment) {
+				var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
+				var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
+				markerLayer.add({geometry: geowanted, properties: propswanted});
+			});
+		});
+	}
+
+
 
 
 
@@ -474,7 +504,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                      	<ul id="nav-menu">
                      	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
                        	 <li><a href="about.html">About</a></li>
-                       	 <li><button>Submit A Comment</button></li>
+                       	 <li><button onclick='filterComments()'>Submit A Comment</button></li>
                        	 <li><a href="contact.html">Contact</a></li>
                       </ul>
                     </div>
@@ -544,5 +574,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 </div>
 <div id="footer">Some of these maps generated with <a href="http://www.maptiler.com/">MapTiler</a></div>
 <div id="map"></div>
+<div id="filters" style="right: 0;bottom: 0;position: absolute;">
+	<form>
+		Category: <select id="typeFilterField">
+			<option value="general">General</option>
+			<option value="vam">VAM</option>
+			<option value="water">Water</option>
+			<option value="safety">Safety</option>
+			<option value="campsite">Campsite</option>
+			<option value="tip">Tip</option>
+			<option value="solos">Solos</option>
+		</select>
+		<input type="button" onclick="filterCommentsByType()" value="Submit">
+	</form>
+</div>
 </body>
 </html>
