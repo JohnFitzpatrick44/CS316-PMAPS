@@ -13,7 +13,7 @@
 html { overflow: hidden; }
 body { overflow: hidden; padding: 0; margin: 0;
 width: 100%; height: 100%; font-family: Trebuchet MS, Trebuchet, Arial, sans-serif; }
-#map {position: absolute; top: 130px; left: 25px; right: 25px; bottom: 35px; overflow: auto;}
+#map {position: absolute; top: 130px; left: 25px; right: 410px; bottom: 35px; overflow: auto;}
 @media screen and (max-width: 600px) {
   #map { top:0px; left:0px; width:100%; height:100%;}
 }
@@ -54,11 +54,8 @@ li a, button {
 
 table {
 	position: absolute;
-    left: 1000px;
-    top: 130px;
-    border-collapse: collapse;
-    width: 20%;
-}
+    right: 5px;
+  }
 
 th, td {
     text-align: left;
@@ -71,12 +68,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 
 .body {
-  height: 100px;
+  overflow: hidden;
+  height: 100%;
   overflow-y: auto;
+  position: absolute;
+  right: 0px;
+  top: 130px;
+  border-collapse: collapse;
+  width: 400px;
 }
 
 
 </style>
+
 <?php
 	try {
 		include("/etc/php/my-pdo.php");
@@ -85,10 +89,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		print "Error connecting to the database: " . $e->getMessage() . "<br/>";
 		die();
 	}
-
 	$comment_array = $dbh->query('SELECT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid');
-
 ?>
+
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSBibzyTDahkTrbF19v4Ch9sP_96gb-U">
     </script>
@@ -209,7 +212,17 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 	var trailLayer;
 	var markerLayer;
 	var usersMarker;
-	//var firebase = new Firebase("https://api-project-343670332138.firebaseio.com");
+	var commentArray = {
+		comInternal: null,
+		comListener: function(val) { updateCommentList(val); },
+		set list(val) {
+			this.comInternal = val;
+			this.comListener(val);
+		},
+		get list() {
+			return this.comInternal;
+		}
+	};
 	function init() {
 		var opts = {
 			streetViewControl: true,
@@ -237,8 +250,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		// A data layer to hold all the data people have added
 		markerLayer = new google.maps.Data();
 
-		var commentArray = <?php echo json_encode($comment_array->fetchAll(PDO::FETCH_ASSOC)); ?>;
-		commentArray.forEach(function(comment) {
+		commentArray.list = <?php echo json_encode($comment_array->fetchAll(PDO::FETCH_ASSOC)); ?>;
+		commentArray.list.forEach(function(comment) {
 			var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
 			var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
 			markerLayer.add({geometry: geowanted, properties: propswanted});
@@ -406,11 +419,20 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 				var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
 				markerLayer.add({geometry: geowanted, properties: propswanted});
 			});
+			commentArray.list = decoded;
 		});
 	}
 
-
-
+	function updateCommentList(comments) 
+	{
+		var contentStr = "<table><tr><th>Name</th><th>Type</th><th>Time</th></tr>";
+		comments.forEach(function(comment) {
+			contentStr = contentStr + "<tr><td>" + comment.name + "</td><td>" + comment.type + "</td><td>" + comment.timestamp + "</td></tr>" + 
+				"<tr><td colspan=\"3\">" + comment.text + "</td></tr>";
+		});
+		contentStr = contentStr + "</table>";
+		document.getElementById("commentList").innerHTML = contentStr;
+	}
 
 
 	function getDot(category) // Given the category of a data point, spits out the appropriate color of the data point
@@ -538,59 +560,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
    </nav>
 </div>
-<div class="header">
-	<table>
-	  <tr>
-	    <td>Comment Type Selection Here</td>
-	  </tr>
-	</table>
+<div>
+	
+
+	
 </div>
-<div class="body">
-  <table>
-  	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-  	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-  </table>
-</div>
+<div class="body" id="commentList"></div>
 <div id="footer">Some of these maps generated with <a href="http://www.maptiler.com/">MapTiler</a></div>
 <div id="map"></div>
 <div id="filters" style="right: 25px;bottom: 2px;position: absolute;">
