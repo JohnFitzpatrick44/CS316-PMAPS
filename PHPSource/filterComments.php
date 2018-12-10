@@ -3,42 +3,36 @@
   // filters: name,maxlat,minlat,maxlng,minlng,type(s),mintime,maxtime,trip(s)
   // array/field should be empty, not set, or "" for no input
 
+  function createString($var, $attr) {
+    $returnStr = ' ';
+    if(is_array($var)) {
+      $returnStr = $returnStr . '(';
+      foreach($var as $v) {
+        $returnStr = $returnStr . $attr . '=\'' . $v . '\' OR ';
+      }
+      $returnStr = $returnStr . 'false) AND ';
+    } else if($var != "" ) {
+      $returnStr = $returnStr . $attr . '=\'' . $var . '\' AND ';
+    }
+    return $returnStr;
+  }
+
   $logic = ' ';
   $relevant = false;
 
-  if(isset($_POST['name']) && is_array($_POST['name'])) {
-    $logic = $logic . '(';
-    $name = $_POST['name'];
-    foreach($name as $n) {
-      $logic = $logic . 'name=\'' . $n . '\' OR ';
-    }
-    $logic = $logic . 'false) AND ';
-  } else if($_POST['name'] != "" ) {
-    $logic = $logic . 'name=\'' . $_POST['name'] . '\' AND ';
+  if(isset($_POST['name'])) {
+    $logic = $logic . createString($_POST['name'], 'name');
   }
 
-  if(isset($_POST['type']) && is_array($_POST['type'])) {
-    $logic = $logic . '(';
-    $type = $_POST['type'];
-    foreach($type as $t) {
-      $logic = $logic . 'type=\'' . $t . '\' OR ';
-    }
-    $logic = $logic . 'false) AND ';
-  } else if($_POST['type'] != "" ) {
-    $logic = $logic . 'type=\'' . $_POST['type'] . '\' AND ';
+  if(isset($_POST['type'])) {
+    $logic = $logic . createString($_POST['type'], 'type');
   }
 
-  if(isset($_POST['trip'])  && is_array($_POST['trip'])) {
-    $logic = $logic . '(';
-    $trip = $_POST['trip'];
-    foreach($trip as $t) {
-      $logic = $logic . 'trip=\'' . $t . '\' OR ';
+  if(isset($_POST['trip'])) {
+    $logic = $logic . createString($_POST['trip'], 'trip');
+    if($_POST['trip'] != "" || is_array($_POST['trip'])) {
+      $relevant = true;
     }
-    $logic = $logic . 'false) AND ';
-    $relevant = true;
-  } else if($_POST['trip'] != "" ) {
-    $logic = $logic . 'trip=\'' . $_POST['trip'] . '\' AND ';
-    $relevant = true;
   }
 
   if(isset($_POST['maxlng']) && is_numeric($_POST['maxlng'])) {
