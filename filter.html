@@ -27,13 +27,14 @@
 <script>
 function filt() {
 
+  var list = [];
   var filter = <?php echo json_encode($filter->fetchAll(PDO::FETCH_ASSOC)); ?>;
   filter.forEach(function(comment) {
     if(document.getElementById('button').onclick = function() {
+      list.push("comment");
       var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
       var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
       markerLayer.add({geometry: geowanted, properties: propswanted});)
   });
-
 </script>
 </html>
