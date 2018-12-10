@@ -7,14 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>PMAPS: PWILD Marking/Annotating Pisgah Systematically</title>
 <style type="text/css">
 html { overflow: hidden; }
 body { overflow: hidden; padding: 0; margin: 0;
 width: 100%; height: 100%; font-family: Trebuchet MS, Trebuchet, Arial, sans-serif; }
-#map { position: absolute; top: 130px; left: 25px; right: 300px; bottom: 25px; overflow: auto; }
+#map { position: absolute; top: 130px; left: 25px; right: 25px; bottom: 35px; overflow: auto; }
 @media screen and (max-width: 600px) {
   #map { top:0px; left:0px; width:100%; height:100%;}
 }
@@ -28,6 +27,7 @@ header {
   color: white;
   font-size: 20px;
 }
+
 ul {
     position: fixed;
     top: 10;
@@ -36,24 +36,23 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #A9A9A9;
 }
 
 li {
     float: left;
 }
 
-li a {
+li a,button {
+	outline: none;
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    background-color: #A9A9A9;
 }
 
-li a:hover {
-    background-color: #111;
-}
 table {
 	position: absolute;
     left: 1000px;
@@ -79,20 +78,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 
 </style>
-<!--?php
-	try {
-		include("/etc/php/my-pdo.php");
-		$dbh = dbconnect();
-	} catch (PDOException $e) {
-		print "Error connecting to the database: " . $e->getMessage() . "<br/>";
-		die();
-	}
-
-	$comment_array = ($dbh->query('SELECT * FROM Comment WHERE pid = 43'))->fetchAll();
-
-?-->
-
-
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSBibzyTDahkTrbF19v4Ch9sP_96gb-U">
     </script>
@@ -100,6 +85,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     <script type="text/javascript">
       google.load('visualization', '1', {packages: ["map", "table"]});
     </script>
+<script src="jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	var map;
 	var mapBounds = new google.maps.LatLngBounds(
@@ -210,7 +196,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		isPng: true
 	});
 	var trailLayer;
-	var firebase = new Firebase("https://api-project-343670332138.firebaseio.com");
+	var markerLayer;
+	//var firebase = new Firebase("https://api-project-343670332138.firebaseio.com");
 	function init() {
 		var opts = {
 			streetViewControl: true,
@@ -233,66 +220,27 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		map.mapTypes.set('Nat Geo', natGeo);
 		map.mapTypes.set('USGS', usgsStolen);
 		
-// Things above this point deal with the maps. Things below this point deals with the data.
-		
-		/*var trailDataLayer = new google.maps.Data();
-		trailDataLayer.loadGeoJson('trails/srw_data.geojson');
-		trailDataLayer.loadGeoJson('trails/graveyard.geojson');
-		trailDataLayer.loadGeoJson('trails/davidson.geojson');
-		trailDataLayer.loadGeoJson('trails/blueRidge.geojson');
-		trailDataLayer.loadGeoJson('trails/blackBalsam.geojson');
-		trailDataLayer.loadGeoJson('trails/mills.geojson');
-		trailDataLayer.loadGeoJson('trails/farlow.geojson');
-		trailDataLayer.loadGeoJson('trails/mount2sea.geojson');
-		trailDataLayer.addListener('click', function(event) {
-			var content = "<div class='googft-info-window'>"+
-							"<h1>"+event.feature.getProperty('name')+"</h1>"+
-							"<i>"+event.feature.getProperty('segment')+"</i>"+
-							"</div>";
-			infowindow.setContent(content);
-			infowindow.setPosition(event.feature.getGeometry().get()); //This doesn't work. This would be right if it were points, not trails.
-			infowindow.open(map);
-		});
-		trailDataLayer.setMap(map);*/
+
 		
 		// A data layer to hold all the data people have added
-		var markerLayer = new google.maps.Data();
-		
-		// Add everything in the database to the data layer
-		firebase.on("child_added", function(snapshot, prevChildKey) {
-			var latwanted = snapshot.val().lat;
-			var lonwanted = snapshot.val().lon;
-			var geowanted = new google.maps.Data.Point({lat: latwanted, lng: lonwanted});
-			var propswanted = {name: snapshot.val().name, description: snapshot.val().description, category: snapshot.val().category, date: snapshot.val().date};
-			
+		markerLayer = new google.maps.Data();
+
+		var commentArray = <?php echo json_encode($comment_array->fetchAll(PDO::FETCH_ASSOC)); ?>;
+		commentArray.forEach(function(comment) {
+			var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
+			var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
 			markerLayer.add({geometry: geowanted, properties: propswanted});
 		});
-		
-		/*var comments = <?php echo json_encode($comment_array); ?>;
-
-		for(var i = 0; i < comments.length; i++) {
-			var pname = <?php echo json_encode(($dbh->query('SELECT name FROM Person WHERE name = ' . $comment_array[i]['pid']))->fetch()); ?>;
-			var latwanted = comments[i]['lattitude'];
-			var lonwanted = comments[i]['longitude'];
-			var geowanted = new google.maps.Data.Point({lat: latwanted, lng: lonwanted});
-			var propswanted = {name: pname, description: comments[i]['text'], category: comments[i]['type'], date: comments[i]['timestamp']};
-			markerLayer.add({geometry: geowanted, properties: propswanted});
-		}*/
-
-
-
-
-
 
 		// Color the data layer based on the category of the data, and give each point roll over text
-		markerLayer.setStyle(function(feature) {
+		markerLayer.setStyle(function(feature) { 
 			return ({icon: getDot(feature.getProperty('category')),
-					title: feature.getProperty('description')});
+					title: feature.getProperty('description')}); 
 		});
 		
 		// When the data layer is clicked on, display the appropriate data
 		var infowindow = new google.maps.InfoWindow();
-		markerLayer.addListener('click', function(event) {
+		markerLayer.addListener('click', function(event) { 
 			var timeStamp = event.feature.getProperty('date');
 			var markerDescription = event.feature.getProperty('description');
 			var contributorName = event.feature.getProperty('name');
@@ -350,67 +298,106 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(trailControlDiv);
 	}
 	function showInputFormWindow(event){
-		var contentString = "<table>" +
-				"<tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>" +
-				"<tr><td>Marker Description:</td> <td><textarea id='markerDescription'></textarea></td> </tr>" +
-				"<tr><td>Category:</td> <td><input list='category' id='categories'>" +
-				"<datalist id='category'>" +
-				"<option value='VAM (View Appreciation Moment)'>" +
-				"<option value='Waterfall'>" +
-				"<option value='Water'>" +
-				"<option value='Safety'>" +
-				"<option value='Campsite'>" +
-				"<option value='Pro-Tip!'>" +
-				"<option value='Landmark'>" +
-				"<option value='Funny Story'>" +
-				"<option value='Solos'>" +
-				"</datalist></td></tr>" +
-                "<tr><td></td><td><input type='button' value='Save & Close' onclick='saveData()'/></td></tr>";
+		var contentString = 
+			"<div><h3>Submit a Comment</h3>" + 
+				"<form>" +
+					"Name: <input type=\"text\" id=\"nameField\"><br>" +
+					"Comment:<br><textarea id=\"textField\"></textarea><br>" +
+					"Category: <select id=\"typeField\">" +
+						"<option value=\"general\">General</option>" +
+						"<option value=\"vam\">VAM</option>" +
+						"<option value=\"water\">Water</option>" +
+						"<option value=\"safety\">Safety</option>" +
+						"<option value=\"campsite\">Campsite</option>" +
+						"<option value=\"tip\">Tip</option>" +
+						"<option value=\"solos\">Solos</option>" +
+					"</select>" +
+					"<input type=\"button\" value=\"Submit\" onclick=\"saveData()\">" +
+				"</form>" +
+			"</div>";
 		infoWindow.setContent(contentString);
 		infoWindow.open(map, usersMarker);
 	}
 	function saveData(){ //What to do when the user hits the "submit" button on the user input form.
 		// Awkwardly pulls what the user wrote on the input form
-		var name = document.getElementById("name").value;
-		var description = document.getElementById("markerDescription").value;
-		var cat = document.getElementById("categories").value;
-		
+		var name = document.getElementById("nameField").value;
+		var description = document.getElementById("textField").value;
+		var cat = document.getElementById("typeField").value;
 		var pos = usersMarker.getPosition();
-		var d = new Date();
-		var dateString = (d.getMonth()+1)+"-"+d.getDate()+"-"+d.getFullYear();
-		
-		// Adds the data to the database
-		//firebase.push({lat: pos.lat(),
-		//				lon: pos.lng(),
-		//				name: name,
-		//				description: description,
-		//				category: cat,
-		//				date: dateString});
+
+		if(name == "" || description == "" || cat == "") {
+			alert("Please fill all fields.");
+			return;
+		}
+
+		$.post("saveData.php",
+		{
+			name: name,
+			text: description,
+			type: cat,
+			longitude: pos.lng(),
+			lattitude: pos.lat(),
+		},
+		function(data,status) {
+			location.reload();
+			alert(data);
+		});
 						
 		infoWindow.close(); // If we're saving data, we must be done with the input form, so let's close it.
 	}
+
+	function filterCommentsByType()
+	{
+		var type = document.getElementById("typeFilterField").value;
+		filterComments("",type,"","","","","");
+	}
+
+	function filterComments(names, types, trips, minlat, maxlat, minlng, maxlng)	// Time not implemented client side yet 
+	{
+		markerLayer.forEach(function(feature) {
+			markerLayer.remove(feature);
+		});
+
+		$.post("filterComments.php",
+		{
+			name: names,
+			type: types,
+			trip: trips,
+			minlat: minlat,
+			maxlat: maxlat,
+			minlng: minlng,
+			maxlng: maxlng
+		},
+		function(data,status) {
+			var decoded = $.parseJSON(data);
+			decoded.forEach(function(comment) {
+				var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
+				var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
+				markerLayer.add({geometry: geowanted, properties: propswanted});
+			});
+		});
+	}
+
+
+
+
+
 	function getDot(category) // Given the category of a data point, spits out the appropriate color of the data point
 	{
-		if(category == "Waterfall") //purple
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAi0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NMov6vzp99f8zVWfAdKBh4H+g+EyYorQ027T//2f+x8CxFrEghbEgRQcOFB/Aqmhv4V6Qor0gRQ8ftj/Equh2822QottEmxQLshubohCjEJCiEJjj54N8tzFrI9h36zLWwXw3jQENgMJpIzSc1iGHEwBt95qDejjnKAAAAABJRU5ErkJggg==";
-		else if(category == "Water") //blue
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC81M4v6n56++n9V1RkwbWgY+B8oPhOmKM3WNu3/zJn/MbCFRSxIYSxI0YHi4gNYFRUW7gUp2gtS9LC9/SFWRc3Nt0GKbhNtUizIbmyKjIxCQIpCYI6fD/JdVtZGsO8yMtbBfDeNAQ2AwmkjNJzWIYcTAMk+i9OhipcQAAAAAElFTkSuQmCC";
-		else if(category == "Safety") //yellow
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAi0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NijL7v3p1+v8zZ6rAdGCg4X+g+EyYorS0NNv////PxMCxsRYghbEgRQcOHCjGqmjv3kKQor0gRQ8fPmzHquj27WaQottEmxQLshubopAQI5CiEJjj54N8t3FjFth369ZlwHw3jQENgMJpIzSc1iGHEwB8p5qDBbsHtAAAAABJRU5ErkJggg==";
-		else if(category == "Campsite")  //green
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiElEQVR42mNgQIAoIF4NxGegdCCSHAMzEC81izL7n746/X/VmSowbRho+B8oPhOmKM02zfb/TCzQItYCpDAWpOhA8YFirIoK9xaCFO0FKXrY/rAdq6Lm280gRbeJNikWZDc2RUYhRiBFITDHzwf5LmtjFth3GesyYL6bxoAGQOG0ERpO65DDCQDX7ovT++K9KQAAAABJRU5ErkJggg==";
-		else if(category == "Pro-Tip!") //red
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NUlH5v9rF5f+ZoCAwHaig8B8oPhOmKC1NU/P//7Q0DByrqgpSGAtSdOCAry9WRXt9fECK9oIUPXwYFYVV0e2ICJCi20SbFAuyG5uiECUlkKIQmOPng3y30d0d7Lt1bm4w301jQAOgcNoIDad1yOEEAFm9fSv/VqtJAAAAAElFTkSuQmCC";
-		else if(category == "Landmark") //darkgreen+
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAArUlEQVR42mNggAIBJYZCUU2Go8KqDLdBtKAKQyYDEmAW1WI4aBvM9d86meW/bSormLYO4vwvpsOwA6yCT56h2jGE+79lGtN/41QGOAbx7YAa+RUZShiE1Riu2KSwQCTTkDCQDxIXVme4yCCozPDKDmgFNkUgcSFlhmfEmQSyE2Q3NjfZBHP+B/oyG+x4MW2GPWDfpUB9lwL33XbkYACHk4gGw0lQOIloMhxHDicA77heAmO53v0AAAAASUVORK5CYII=";
-		else if(category == "Funny Story") //darkpurple+
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAq0lEQVR42mNggAIlBqVCTQbNo6oMqrdBtAqDSiYDEmDWYtA6mMQV/D+LJfl/LmsqmE7gDPqvw6CzA6xCnkG+Oo075H8WU9r/NIZUOAbxk4EaFRkUSxjUGNSu5LCkQCXTkHDq/2yguDqD+kUGZQblV3msqVgVgcSB8s+IMwlkJ8hubG5K4Az+D/RlNtjx2gzae0C+A+mE+C4F5rvtyMEADicNBo2T0HA6jhxOAIFkaCWva8LfAAAAAElFTkSuQmCC";
-		else if(category == "Solos")//brown+
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAiklEQVR42mNgQIAoIF4NxGegdCCSHAMzEC+NslL5v7rU+f+Z3iAwHWii8B8oPhOmKC3NSfP//01pGDjWRhWkMBak6MCBVl+sivY2+4AU7QUpevhwThRWRbdnRIAU3SbapFiQ3dgUhZgpgRSFwBw/H+S7jVVuYN+tq3CD+W4aAxoAhdNGaDitQw4nAFZ+h+ARB/VOAAAAAElFTkSuQmCC";
-		else if(category == "VAM (View Appreciation Moment)") //light blue
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAl0lEQVR42mNgQIAoIF4NxGegdCCSHAMzEC91sLH9H9c34X/hqjVg2tLM/D9QfCZMUZqni+v/+odP/2d/+QnHIL6TnT1IYSxI0YHM+YvAEmk//8ExiJ8xdwFI0V6Qooc1u/dhVVS5bSdI0W2iTYoF2Y3NTTYWliBFITDHzwf5LmnyVLDvEiZOhvluGgMaAIXTRmg4rUMOJwARmo9axahWIwAAAABJRU5ErkJggg==";
+		if(category == "vam") //purple
+			return "waterfall.png";
+		else if(category == "water") //blue
+			return "water.png";
+		else if(category == "safety") //yellow
+			return "safety.png";
+		else if(category == "campsite")  //green
+			return "camp.png";
+		else if(category == "tip") //red
+			return "info.png";
+		else if(category == "solos")//brown+
+			return "solo.png";
 		else //darkgrey+
-			return "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAgElEQVR42mNggAJFRcUWdXX16yoqKs9AtJKSUh0DEmDW0NC44mhr+9/e3h6OHW1s/mtqap4Dq5CXl+91QlMAVwgUV1BQaGdQVVV9iE0BDKupqd1nUFZW/uCARxFQ/i1xJoHsdMTjJqAvG8COB/ruAg7fnUUOBlg43YSG0w3kcAIAxcVqHwlKq6YAAAAASUVORK5CYII=";
+			return "general.png";
 	}	
 	function windowControlTrail(e, infoWindow, map) {
 		e.infoWindowHtml = "<div class='googft-info-window'>"+
@@ -505,7 +492,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                      	<ul id="nav-menu">
                      	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
                        	 <li><a href="about.html">About</a></li>
-                       	 <li><a href="comment.html">Submit A Comment</a></li>
+                       	 <li><button onclick='filterComments()'>Submit A Comment</button></li>
                        	 <li><a href="contact.html">Contact</a></li>
                       </ul>
                     </div>
@@ -520,60 +507,21 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
    </nav>
 </div>
-<div class="header">
-	<table>
-	  <tr>
-	    <td>Comment Type Selection Here</td>
-	  </tr>
-	</table>
-</div>
-<div class="body">
-  <table>
-  	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-  	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-	  <tr>
-	    <td>Comment</td>
-	  </tr>
-  </table>
-</div>
 <div id="footer">Some of these maps generated with <a href="http://www.maptiler.com/">MapTiler</a></div>
 <div id="map"></div>
+<div id="filters" style="right: 25px;bottom: 2px;position: absolute;">
+	<form>
+		Category: <select id="typeFilterField">
+			<option value="general">General</option>
+			<option value="vam">VAM</option>
+			<option value="water">Water</option>
+			<option value="safety">Safety</option>
+			<option value="campsite">Campsite</option>
+			<option value="tip">Tip</option>
+			<option value="solos">Solos</option>
+		</select>
+		<input type="button" onclick="filterCommentsByType()" value="Submit">
+	</form>
+</div>
 </body>
 </html>

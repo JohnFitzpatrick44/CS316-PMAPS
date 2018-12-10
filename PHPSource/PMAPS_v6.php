@@ -13,7 +13,7 @@
 html { overflow: hidden; }
 body { overflow: hidden; padding: 0; margin: 0;
 width: 100%; height: 100%; font-family: Trebuchet MS, Trebuchet, Arial, sans-serif; }
-#map { position: absolute; top: 130px; left: 25px; right: 300px; bottom: 25px; overflow: auto; }
+#map {position: absolute; top: 130px; left: 25px; right: 25px; bottom: 35px; overflow: auto;}
 @media screen and (max-width: 600px) {
   #map { top:0px; left:0px; width:100%; height:100%;}
 }
@@ -35,24 +35,23 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #A9A9A9;
 }
 
 li {
     float: left;
 }
 
-li a {
+li a, button {
     display: block;
     color: white;
+    outline: none;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    background-color: #A9A9A9;
 }
 
-li a:hover {
-    background-color: #111;
-}
 table {
 	position: absolute;
     left: 1000px;
@@ -574,7 +573,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 </div>
 <div id="footer">Some of these maps generated with <a href="http://www.maptiler.com/">MapTiler</a></div>
 <div id="map"></div>
-<div id="filters" style="right: 0;bottom: 0;position: absolute;">
+<div id="filters" style="right: 25px;bottom: 2px;position: absolute;">
 	<form>
 		Category: <select id="typeFilterField">
 			<option value="general">General</option>
