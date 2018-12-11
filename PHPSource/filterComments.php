@@ -51,13 +51,14 @@
     $logic = $logic . 'longitude >= ' . $_POST['minlat'] . ' AND ';
   }  
 
-  if(isset($_POST['mintime'])) {
-    $logic = $logic . 'timestamp >= ' . $_POST['mintime'] . ' AND ';
+  if(isset($_POST['mintime']) && $_POST['mintime'] != "") {
+    $logic = $logic . 'timestamp >= \'' . $_POST['mintime'] . ' 00:00:00\' AND ';
   }  
 
-  if(isset($_POST['maxtime'])) {
-    $logic = $logic . 'timestamp <= ' . $_POST['maxtime'] . ' AND ';
+  if(isset($_POST['maxtime']) && $_POST['maxtime'] != "") {
+    $logic = $logic . 'timestamp <= \'' . $_POST['maxtime'] . ' 23:59:59\' AND ';
   }  
+
 
   $logic = $logic . ' true;';
 ?>

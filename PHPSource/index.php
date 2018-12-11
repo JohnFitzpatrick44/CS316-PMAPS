@@ -91,7 +91,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   overflow-y: auto;
   position: absolute;
   right: 0px;
-  top: 430px;
+  top: 480px;
   border-collapse: collapse;
   width: 400px;
 }
@@ -465,7 +465,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		document.getElementById("solosCheck").checked = true;
 		document.getElementById("waterCheck").checked = true;
 		document.getElementById("vamCheck").checked = true;
-		document.getElementById("waterCheck").checked = true;
+		document.getElementById("safetyCheck").checked = true;
 		document.getElementById("campsiteCheck").checked = true;
 
 		document.getElementById("augCheck").checked = true;
@@ -473,6 +473,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		document.getElementById("stepCheck").checked = true;
 
 		document.getElementById("nameCheck").value = "";
+		document.getElementById("minDateCheck").value = "";
+		document.getElementById("maxDateCheck").value = "";
 
 		filterCommentsFromForm();
 
@@ -522,20 +524,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 		if(trips.length == 3) trips = "";
 
-
 		if(recBounds != null) {
 			var bounds = recBounds.getBounds();
 			var sw = bounds.getSouthWest();
 			var ne = bounds.getNorthEast();
 
-			filterComments(document.getElementById("nameCheck").value,types,trips, sw.lat(), ne.lat(), sw.lng(), ne.lng());
+			filterComments(document.getElementById("nameCheck").value,types,trips, sw.lat(), ne.lat(), sw.lng(), ne.lng(), document.getElementById("minDateCheck").value,document.getElementById("maxDateCheck").value);
 		} else {
-			filterComments(document.getElementById("nameCheck").value,types,trips);
+			filterComments(document.getElementById("nameCheck").value,types,trips, " "," "," "," ",document.getElementById("minDateCheck").value,document.getElementById("maxDateCheck").value);
 		}
 		
 	}
 
-	function filterComments(names, types, trips, minlat, maxlat, minlng, maxlng)	// Time not implemented client side yet 
+	function filterComments(names, types, trips, minlat, maxlat, minlng, maxlng, mintime, maxtime)	// Time not implemented client side yet 
 	{
 		removeAllMarkers();
 
@@ -547,7 +548,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			minlat: minlat,
 			maxlat: maxlat,
 			minlng: minlng,
-			maxlng: maxlng
+			maxlng: maxlng,
+			mintime: mintime,
+			maxtime: maxtime
 		},
 		function(data,status) {
 			var decoded = $.parseJSON(data);
@@ -700,7 +703,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                     <i class="icon ion-close-round close-iframe"></i>
                     <div class="intro-inner">
                      	<ul id="nav-menu">
-                     	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
+                     	 <li><a href="index.php">PMAPS</a></li>
                        	 <li><a href="about.html">About</a></li>
                        	 <li><button class="headerButton" onclick='startComment()'>Submit A Comment</button></li>
                        	 <li><a href="contact.html">Contact</a></li>
@@ -740,6 +743,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 				<input type="checkbox" id="marchCheck" checked> March<br/></input>
 				<input type="checkbox" id="stepCheck" checked> STEP<br/></input>
 			</td>
+		</tr>
+		<tr>
+			<td colspan="3">Minimum Date: <input type="date" id="minDateCheck" /><br/>
+				Maximum Date: <input type="date" id="maxDateCheck" /></td>
 		</tr>
 		<tr>
 			<td>
