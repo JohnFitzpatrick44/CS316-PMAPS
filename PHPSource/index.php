@@ -42,7 +42,7 @@ li {
     float: left;
 }
 
-li a, button {
+li a {
     display: block;
     color: white;
     outline: none;
@@ -52,15 +52,33 @@ li a, button {
     background-color: #A9A9A9;
 }
 
+.headerButton {
+	display: block;
+    color: white;
+    outline: none;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: #A9A9A9;	
+}
+
+
+
+
 table {
 	position: absolute;
     right: 5px;
+    width: 98%;
   }
 
 th, td {
     text-align: left;
     padding: 8px;
     border: 1px solid black;
+}
+
+h3 {
+	text-align: center;
 }
 
 tr:nth-child(even) {background-color: #f2f2f2;}
@@ -343,9 +361,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		
 		infoWindow = new google.maps.InfoWindow(); // Makes an info window for showing the data input form.
 		
-		google.maps.event.addListener(usersMarker, 'click', showInputFormWindow); // When the user clicks on the big red pin, open up the form for data input.
+		//google.maps.event.addListener(usersMarker, 'click', showInputFormWindow); // When the user clicks on the big red pin, open up the form for data input.
 		
-		google.maps.event.addListener(usersMarker, 'position_changed', function() {infoWindow.close();}); // When the user moves the big red pin, close the data input form. They clearly don't need it. You know what? We don't need them either!
+		//google.maps.event.addListener(usersMarker, 'position_changed', function() {infoWindow.close();}); // When the user moves the big red pin, close the data input form. They clearly don't need it. You know what? We don't need them either!
 		
 		// Trails Stuff
 		trailLayer = new google.maps.FusionTablesLayer({
@@ -370,27 +388,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		trailControlDiv.index = 1;
 		map.controls[google.maps.ControlPosition.TOP_RIGHT].push(trailControlDiv);
 	}
-	function showInputFormWindow(event){
-		var contentString = 
-			"<div><h3>Submit a Comment</h3>" + 
-				"<form>" +
-					"Name: <input type=\"text\" id=\"nameField\"><br>" +
-					"Comment:<br><textarea id=\"textField\"></textarea><br>" +
-					"Category: <select id=\"typeField\">" +
-						"<option value=\"general\">General</option>" +
-						"<option value=\"vam\">VAM</option>" +
-						"<option value=\"water\">Water</option>" +
-						"<option value=\"safety\">Safety</option>" +
-						"<option value=\"campsite\">Campsite</option>" +
-						"<option value=\"tip\">Tip</option>" +
-						"<option value=\"solos\">Solos</option>" +
-					"</select>" +
-					"<input type=\"button\" value=\"Submit\" onclick=\"saveData()\">" +
-				"</form>" +
-			"</div>";
-		infoWindow.setContent(contentString);
-		infoWindow.open(map, usersMarker);
+
+	function cancelData(){
+		usersMarker.setMap(null);
+		filterCommentsFromForm();
 	}
+
 	function saveData(){ //What to do when the user hits the "submit" button on the user input form.
 		// Awkwardly pulls what the user wrote on the input form
 		var name = document.getElementById("nameField").value;
@@ -416,7 +419,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			alert(data);
 		});
 						
-		infoWindow.close(); // If we're saving data, we must be done with the input form, so let's close it.
 		usersMarker.setMap(null);
 	}
 
@@ -425,6 +427,23 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 	{
 		removeAllMarkers();
 		usersMarker.setMap(map);
+		document.getElementById('commentList').innerHTML = "<div><h3>Submit a Comment</h3>" + 
+				"<table>" +
+					"<tr><td>Name: </td><td><input type=\"text\" id=\"nameField\"></td>" +
+					"<tr><td>Comment: </td><td><textarea id=\"textField\"></textarea></td>" +
+					"<tr><td>Category: </td><td><select id=\"typeField\">" +
+							"<option value=\"general\">General</option>" +
+							"<option value=\"vam\">VAM</option>" +
+							"<option value=\"water\">Water</option>" +
+							"<option value=\"safety\">Safety</option>" +
+							"<option value=\"campsite\">Campsite</option>" +
+							"<option value=\"tip\">Tip</option>" +
+							"<option value=\"solos\">Solos</option>" +
+						"</select></td>" +
+						"<tr><td><input type=\"button\" value=\"Submit\" onclick=\"saveData()\"></td>" +
+						"<td><input type=\"button\" value=\"Cancel\" onclick=\"cancelData()\"></td>" +
+				"</table>" +
+			"</div>";
 	}
 
 	function removeAllMarkers() 
@@ -563,9 +582,9 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 	function updateCommentList(comments) 
 	{
-		var contentStr = "<table><tr><th>Name</th><th>Type</th><th>Time</th></tr>";
+		var contentStr = "<table><tr><th>Name</th><th>Type</th><th>Find</th></tr>";
 		comments.forEach(function(comment) {
-			contentStr = contentStr + "<tr><td>" + comment.name + "</td><td>" + comment.type + "<button onclick=\"findOnMap(" + comment.cid + ")\" >Find on Map</button></td><td>" + comment.timestamp + "</td></tr>" + 
+			contentStr = contentStr + "<tr><td>" + comment.name + "</td><td>" + comment.type + "</td><td><button onclick=\"findOnMap(" + comment.cid + ")\" >Find on Map</button></td></tr>" + 
 				"<tr><td colspan=\"3\">" + comment.text + "</td></tr>";
 		});
 		contentStr = contentStr + "</table>";
@@ -683,7 +702,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
                      	<ul id="nav-menu">
                      	 <li><a href="PMAPS_v6.html">PMAPS</a></li>
                        	 <li><a href="about.html">About</a></li>
-                       	 <li><button onclick='startComment()'>Submit A Comment</button></li>
+                       	 <li><button class="headerButton" onclick='startComment()'>Submit A Comment</button></li>
                        	 <li><a href="contact.html">Contact</a></li>
                       </ul>
                     </div>
@@ -698,12 +717,15 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
    </nav>
 </div>
-<div id="cbbutton" class="filter">
+<div class="filter">
 	<table>
 		<tr>
-			<th>Type</th><th>Trip</th><th>Name</th>
+			<th>Name</th><th>Type</th><th>Trip</th>
 		</tr>
 		<tr>
+			<td>
+				<input type="text" id="nameCheck" />
+			</td>
 			<td>
 				<input type="checkbox" id="generalCheck" checked> General<br/></input>
 				<input type="checkbox" id="vamCheck" checked> VAM<br/></input>
@@ -717,9 +739,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 				<input type="checkbox" id="augCheck" checked> August<br/></input>
 				<input type="checkbox" id="marchCheck" checked> March<br/></input>
 				<input type="checkbox" id="stepCheck" checked> STEP<br/></input>
-			</td>
-			<td>
-				<input type="text" id="nameCheck" />
 			</td>
 		</tr>
 		<tr>
