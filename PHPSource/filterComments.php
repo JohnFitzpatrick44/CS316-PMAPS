@@ -60,7 +60,7 @@
   }  
 
 
-  $logic = $logic . ' true;';
+  $logic = $logic . ' true ';
 ?>
 
 <?php
@@ -75,9 +75,9 @@
     $query = '';
 
     if($relevant) {
-      $query = 'SELECT DISTINCT Comment.cid AS cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place,RelevantFor WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND Comment.cid = RelevantFor.cid AND ' . $logic;
+      $query = 'SELECT DISTINCT Comment.cid AS cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place,RelevantFor WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND Comment.cid = RelevantFor.cid AND ' . $logic . 'ORDER BY Comment.cid DESC';
     } else {
-      $query = 'SELECT DISTINCT cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND ' . $logic;
+      $query = 'SELECT DISTINCT cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND ' . $logic . 'ORDER BY cid DESC';
     }
 
     $statement = $dbh->query($query);

@@ -60,6 +60,7 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
     background-color: #A9A9A9;	
+	border: none;
 }
 
 
@@ -122,7 +123,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		print "Error connecting to the database: " . $e->getMessage() . "<br/>";
 		die();
 	}
-	$comment_array = $dbh->query('SELECT cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid');
+	$comment_array = $dbh->query('SELECT cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid ORDER BY cid DESC');
 ?>
 
 <script async defer
@@ -598,7 +599,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 	function getDot(category) // Given the category of a data point, spits out the appropriate color of the data point
 	{
 		if(category == "vam") //purple
-			return "images/waterfall.png";
+			return "images/vam.png";
 		else if(category == "water") //blue
 			return "images/water.png";
 		else if(category == "safety") //yellow
