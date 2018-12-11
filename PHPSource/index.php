@@ -78,7 +78,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   width: 400px;
 }
 
-<<<<<<< HEAD
 .filter {
 	height: 300px;
 	position: absolute;
@@ -89,14 +88,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 }
 
 
-=======
 #cbbutton{
   float: right;
   width: 300px;
   border: 3px solid #73AD21;
   padding: 10px;
 	}
->>>>>>> 50951c552c9b2ef5096e68a9e20085855adfadca
 </style>
 
 <?php
