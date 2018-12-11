@@ -8,7 +8,6 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="icon" href="images/favicon.ico">
 <title>PMAPS: PWILD Marking/Annotating Pisgah Systematically</title>
 <style type="text/css">
 html { overflow: hidden; }
@@ -401,18 +400,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		var name = document.getElementById("nameField").value;
 		var description = document.getElementById("textField").value;
 		var cat = document.getElementById("typeField").value;
-		var trips = [];
-
-		if($('#augSubCheck').prop('checked')){
-			trips.push('august');
-		}
-		if($('#marSubCheck').prop('checked')){
-			trips.push('march');
-		}
-		if($('#steSubCheck').prop('checked')){
-			trips.push('step');
-		}
-
 		var pos = usersMarker.getPosition();
 
 		if(name == "" || description == "" || cat == "") {
@@ -427,7 +414,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			type: cat,
 			longitude: pos.lng(),
 			lattitude: pos.lat(),
-			trips: trips
 		},
 		function(data,status) {
 			location.reload();
@@ -447,20 +433,16 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 					"<tr><td>Name: </td><td><input type=\"text\" id=\"nameField\"></td>" +
 					"<tr><td>Comment: </td><td><textarea id=\"textField\"></textarea></td>" +
 					"<tr><td>Category: </td><td><select id=\"typeField\">" +
-						"<option value=\"general\">General</option>" +
-						"<option value=\"vam\">VAM</option>" +
-						"<option value=\"water\">Water</option>" +
-						"<option value=\"safety\">Safety</option>" +
-						"<option value=\"campsite\">Campsite</option>" +
-						"<option value=\"tip\">Tip</option>" +
-						"<option value=\"solos\">Solos</option>" +
-					"</select></td></tr>" +
-					"<tr><td>Trips: </td><td>" +
-						"<input type=\"checkbox\" id=\"augSubCheck\" checked> August<br/></input>" +
-						"<input type=\"checkbox\" id=\"marSubCheck\" checked> March<br/></input>" +
-						"<input type=\"checkbox\" id=\"steSubCheck\" checked> STEP<br/></input></td></tr>" +
-					"<tr><td><input type=\"button\" value=\"Submit\" onclick=\"saveData()\"></td>" +
-					"<td><input type=\"button\" value=\"Cancel\" onclick=\"cancelData()\"></td>" +
+							"<option value=\"general\">General</option>" +
+							"<option value=\"vam\">VAM</option>" +
+							"<option value=\"water\">Water</option>" +
+							"<option value=\"safety\">Safety</option>" +
+							"<option value=\"campsite\">Campsite</option>" +
+							"<option value=\"tip\">Tip</option>" +
+							"<option value=\"solos\">Solos</option>" +
+						"</select></td>" +
+						"<tr><td><input type=\"button\" value=\"Submit\" onclick=\"saveData()\"></td>" +
+						"<td><input type=\"button\" value=\"Cancel\" onclick=\"cancelData()\"></td>" +
 				"</table>" +
 			"</div>";
 	}
