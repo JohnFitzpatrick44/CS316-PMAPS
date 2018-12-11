@@ -1,0 +1,25 @@
+1) Set up a vm for the course as per the course website's instructions.
+  a) Add an rsa key to the gitlab website from your vm.
+  b) wget -N http://www.cs.duke.edu/courses/fall18/compsci316/init.sh
+  c) bash init.sh
+  d) /opt/dbcourse/sync.sh
+  e) Reboot.
+
+2) Set up a PHP server as per the instructions on the course website.
+  a) /opt/dbcourse/install/install-apache-php.sh
+
+3) Set up a directory for your website and link it to /var/www/html.
+  a) mkdir pmaps
+  b) sudo ln -s ~/pmaps/ /var/www/html
+  c) Download source files and put the contents of source/ in pmaps/.
+  d) Download image files, and put them in pmaps/images.
+  e) Download trail files and put them in pmaps/trails.
+  f) Place my-pdo.php in /etc/php.
+  g) Update your username and database name.
+
+4) Create a database and load the inital data.
+  a) createdb pmaps
+  b) psql -af create.sql pmaps
+  c) psql -af load.sql pmaps
+
+5) Access the website at http://<your-ip>/pmaps
