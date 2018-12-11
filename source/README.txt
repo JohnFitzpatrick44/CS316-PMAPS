@@ -1,8 +1,8 @@
-HOW TO CREATE THE PRODUCTION DATABASE
+PMAPS: PWild Marking and Annotating Pisgah Systematically
 
-1) Acquire the csv file containing the dataset (included). It should be renamed to 'base.csv' if it isn't named that already.
-2) Create a PostgreSQL database and run 'create.sql' to set up the tables.
-3) Run the python script 'loaddb.py' in the same directory as base.csv.
-4) This should generate a 'load.sql' file, run it.
-5) The production database should be all set up.
- 
+An online map application used to link comments, tips, and advice to physical locations in Pisgah National Forest.
+Members of PWild can use this information for future trips.
+
+Developed by Jack Fitzpatrick, Kyle Harvey, Kalito Luna, and Samuel Appiah.
+
+For information on how to set up and deploy this application, read setup.txt.

@@ -8,10 +8,6 @@
   $type = $_POST['type'];
   $lat = $_POST['longitude']; //REVERSED BUG
   $lng = $_POST['lattitude'];
-
-  if(isset($_POST['trips'])) {
-    $trips = $_POST['trips'];
-  } 
 ?>
 
 <?php
@@ -54,13 +50,6 @@
 
     $st = $dbh->prepare('INSERT INTO Comment VALUES (' . $cid . ', \'' . $text . '\', \'' . strtolower($type) . '\', DEFAULT, DEFAULT, ' . $pid . ', ' . $lid . ');'); // cid, text, type, time, valid, pid, lid
     $st->execute();
-
-    if(isset($_POST['trips'])) {
-      foreach($trips as $t) {
-        $rf = $dbh->prepare('INSERT INTO RelevantFor VALUES (' . $cid . ', \'' . $t . '\');');
-        $rf->execute();
-      }
-    }
 
     $dbh->commit();
 

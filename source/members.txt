@@ -24,3 +24,9 @@ Kyle Harvey - I have been looking into how the previous application was setup us
 
 Kalito Luna - Working on SQL queries and understanding the previous application as well as learning PHP with Kyle to take data from csv file and make XML table to run queries.
 
+===========
+FINAL  DEMO
+===========
+
+Jack Fitzpatrick - Got PHP server up and running. Transferred firebase interactions from old pmaps to new SQL server. Wrote PHP files for saving data, filtering data, and deleting data. Wrote javascript to implement many functions, such as filtering by all metrics, adding comments, finding comments on the map, and drawing ranges for filters. Wrote the setup and README files.
+
