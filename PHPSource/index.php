@@ -78,7 +78,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   width: 400px;
 }
 
-
+#cbbutton{
+  float: right;
+  width: 300px;
+  border: 3px solid #73AD21;
+  padding: 10px;
+	}
 </style>
 
 <?php
@@ -561,8 +566,23 @@ tr:nth-child(even) {background-color: #f2f2f2;}
    </nav>
 </div>
 <div>
-	
 
+	
+<input id="cbbutton" type="checkbox" onclick="filterarray('Comments')" name=category checked>Landmark<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Pro-Tip!<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Solos<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Safety<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>VAM<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Waterfall<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Water<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Campsite<br>
+<input id="cbbutton" type="checkbox" onclick="filterarray('Category')" name=category checked>Maps<br>
+<script>
+var list = [];
+function filterarray() {
+      list.push("(document.getAttribute('type')");
+  }
+	</script>
 	
 </div>
 <div class="body" id="commentList"></div>
@@ -570,7 +590,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 <div id="map"></div>
 <div id="filters" style="right: 25px;bottom: 2px;position: absolute;">
 	<form>
-		Category: <select id="typeFilterField">
+		Category: <select id="
+			FilterField">
 			<option value="general">General</option>
 			<option value="vam">VAM</option>
 			<option value="water">Water</option>
