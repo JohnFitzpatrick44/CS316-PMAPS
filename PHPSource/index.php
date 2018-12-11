@@ -108,7 +108,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 ?>
 
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSBibzyTDahkTrbF19v4Ch9sP_96gb-U">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfSBibzyTDahkTrbF19v4Ch9sP_96gb-U&libraries=drawing">
     </script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -239,7 +239,10 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		}
 	};
 	var infoWindow;
+	var drawingManager;
+	var recBounds;
 	function init() {
+		recBounds = null;
 		var opts = {
 			streetViewControl: true,
 			mapTypeId: 'Nat Geo',
@@ -261,6 +264,35 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		map.mapTypes.set('Nat Geo', natGeo);
 		map.mapTypes.set('USGS', usgsStolen);
 		
+		var drawingManager = new google.maps.drawing.DrawingManager({
+		    drawingMode: null,
+		    drawingControl: true,
+		    drawingControlOptions: {
+		      	position: google.maps.ControlPosition.TOP_RIGHT,
+		      	drawingModes: ['rectangle']
+		    },
+		    rectangleOptions: {
+		      	fillColor: '#00bb00',
+		      	fillOpacity: .5,
+		      	strokeWeight: 5,
+		      	clickable: false,
+		      	editable: true,
+		      	zIndex: 1,
+		      	draggable: true
+		    }
+		});
+		drawingManager.setMap(map);
+
+		google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
+			if(recBounds) {
+				recBounds.setMap(null);
+			}
+			recBounds = rectangle;
+			filterCommentsFromForm();
+			rectangle.addListener('bounds_changed', function() {
+				filterCommentsFromForm();
+			});		
+		});
 
 		
 		// A data layer to hold all the data people have added
@@ -402,7 +434,30 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		});
 	}
 
+	function resetSelection()
+	{
+		if(recBounds) {
+			recBounds.setMap(null);
+		}
+		recBounds = null;
 
+		document.getElementById("generalCheck").checked = true;
+		document.getElementById("tipCheck").checked = true;
+		document.getElementById("solosCheck").checked = true;
+		document.getElementById("waterCheck").checked = true;
+		document.getElementById("vamCheck").checked = true;
+		document.getElementById("waterCheck").checked = true;
+		document.getElementById("campsiteCheck").checked = true;
+
+		document.getElementById("augCheck").checked = true;
+		document.getElementById("marchCheck").checked = true;
+		document.getElementById("stepCheck").checked = true;
+
+		document.getElementById("nameCheck").value = "";
+
+		filterCommentsFromForm();
+
+	}
 
 
 
@@ -448,7 +503,16 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 		if(trips.length == 3) trips = "";
 
-		filterComments(document.getElementById("nameCheck").value,types,trips);
+
+		if(recBounds != null) {
+			var bounds = recBounds.getBounds();
+			var sw = bounds.getSouthWest();
+			var ne = bounds.getNorthEast();
+
+			filterComments(document.getElementById("nameCheck").value,types,trips, sw.lat(), ne.lat(), sw.lng(), ne.lng());
+		} else {
+			filterComments(document.getElementById("nameCheck").value,types,trips);
+		}
 		
 	}
 
@@ -659,8 +723,11 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3">
+			<td>
 				<button onclick="filterCommentsFromForm()">Submit</button>
+			</td>
+			<td colspan="2">
+				<button onclick="resetSelection()">Reset Selection</button>
 			</td>
 		</tr>
 	</table>
