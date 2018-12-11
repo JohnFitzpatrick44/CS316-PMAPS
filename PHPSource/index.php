@@ -69,13 +69,22 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 .body {
   overflow: hidden;
-  height: 100%;
+  height: 500px;
   overflow-y: auto;
   position: absolute;
   right: 0px;
-  top: 130px;
+  top: 430px;
   border-collapse: collapse;
   width: 400px;
+}
+
+.filter {
+	height: 300px;
+	position: absolute;
+	right: 0px;
+	top: 130px;
+	border-collapse: collapse;
+  	width: 400px;
 }
 
 
@@ -89,7 +98,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		print "Error connecting to the database: " . $e->getMessage() . "<br/>";
 		die();
 	}
-	$comment_array = $dbh->query('SELECT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid');
+	$comment_array = $dbh->query('SELECT cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid');
 ?>
 
 <script async defer
@@ -223,6 +232,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			return this.comInternal;
 		}
 	};
+	var infoWindow;
 	function init() {
 		var opts = {
 			streetViewControl: true,
@@ -253,7 +263,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		commentArray.list = <?php echo json_encode($comment_array->fetchAll(PDO::FETCH_ASSOC)); ?>;
 		commentArray.list.forEach(function(comment) {
 			var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
-			var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
+			var propswanted = {cid: comment.cid, name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
 			markerLayer.add({geometry: geowanted, properties: propswanted});
 		});
 
@@ -264,7 +274,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 		});
 		
 		// When the data layer is clicked on, display the appropriate data
-		var infowindow = new google.maps.InfoWindow();
+		infowindow = new google.maps.InfoWindow();
 		markerLayer.addListener('click', function(event) { 
 			var timeStamp = event.feature.getProperty('date');
 			var markerDescription = event.feature.getProperty('description');
@@ -392,10 +402,48 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 
 
-	function filterCommentsByType()
+	function filterCommentsFromForm()
 	{
-		var type = document.getElementById("typeFilterField").value;
-		filterComments("",type,"","","","","");
+		var types = [];
+
+		if($('#generalCheck').prop('checked')){
+			types.push('general');
+		}
+		if($('#vamCheck').prop('checked')){
+			types.push('vam');
+		}
+		if($('#waterCheck').prop('checked')){
+			types.push('water');
+		}
+		if($('#safetyCheck').prop('checked')){
+			types.push('safety');
+		}
+		if($('#campsiteCheck').prop('checked')){
+			types.push('campsite');
+		}
+		if($('#tipCheck').prop('checked')){
+			types.push('tip');
+		}
+		if($('#solosCheck').prop('checked')){
+			types.push('solos');
+		}
+
+		var trips = [];
+
+		if($('#augCheck').prop('checked')){
+			trips.push('august');
+		}
+		if($('#marchCheck').prop('checked')){
+			trips.push('march');
+		}
+		if($('#stepCheck').prop('checked')){
+			trips.push('step');
+		}
+
+		if(trips.length == 3) trips = "";
+
+		filterComments(document.getElementById("nameCheck").value,types,trips);
+		
 	}
 
 	function filterComments(names, types, trips, minlat, maxlat, minlng, maxlng)	// Time not implemented client side yet 
@@ -416,18 +464,38 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 			var decoded = $.parseJSON(data);
 			decoded.forEach(function(comment) {
 				var geowanted = new google.maps.Data.Point({lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)});		// Issue here: lat and lng are switched
-				var propswanted = {name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
+				var propswanted = {cid: comment.cid, name: comment.name, description: comment.text, category: comment.type, date: comment.timestamp};
 				markerLayer.add({geometry: geowanted, properties: propswanted});
 			});
 			commentArray.list = decoded;
 		});
 	}
 
+	function findOnMap(cid) 
+	{
+		for(var i = 0; i < commentArray.list.length; i++) {
+			if(commentArray.list[i].cid == cid) {
+				var comment = commentArray.list[i];
+				var laln = {lat: parseFloat(comment.longitude), lng: parseFloat(comment.lattitude)};
+				map.panTo(laln);
+				var content = "<div class='googft-info-window'>"+
+							"<p style='font-size:14px'>"+comment.text+"</p><br><br>"+
+							"<b>Contributed By:</b> "+comment.name+"<br>"+
+							"<i>"+comment.timestamp+"</i><br></div>";
+				
+				infowindow.setContent(content);
+				infowindow.setPosition(laln);
+				infowindow.open(map);
+				break;
+			}	
+		}
+	}
+
 	function updateCommentList(comments) 
 	{
 		var contentStr = "<table><tr><th>Name</th><th>Type</th><th>Time</th></tr>";
 		comments.forEach(function(comment) {
-			contentStr = contentStr + "<tr><td>" + comment.name + "</td><td>" + comment.type + "</td><td>" + comment.timestamp + "</td></tr>" + 
+			contentStr = contentStr + "<tr><td>" + comment.name + "</td><td>" + comment.type + "<button onclick=\"findOnMap(" + comment.cid + ")\" >Find on Map</button></td><td>" + comment.timestamp + "</td></tr>" + 
 				"<tr><td colspan=\"3\">" + comment.text + "</td></tr>";
 		});
 		contentStr = contentStr + "</table>";
@@ -560,27 +628,39 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
    </nav>
 </div>
-<div>
-	
-
-	
+<div class="filter">
+	<table>
+		<tr>
+			<th>Type</th><th>Trip</th><th>Name</th>
+		</tr>
+		<tr>
+			<td>
+				<input type="checkbox" id="generalCheck" checked> General<br/></input>
+				<input type="checkbox" id="vamCheck" checked> VAM<br/></input>
+				<input type="checkbox" id="waterCheck" checked> Water<br/></input>
+				<input type="checkbox" id="safetyCheck" checked> Safety<br/></input>
+				<input type="checkbox" id="campsiteCheck" checked> Campsite<br/></input>
+				<input type="checkbox" id="tipCheck" checked> Tip<br/></input>
+				<input type="checkbox" id="solosCheck" checked> Solos<br/></input>
+			</td>
+			<td>
+				<input type="checkbox" id="augCheck" checked> August<br/></input>
+				<input type="checkbox" id="marchCheck" checked> March<br/></input>
+				<input type="checkbox" id="stepCheck" checked> STEP<br/></input>
+			</td>
+			<td>
+				<input type="text" id="nameCheck" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				<button onclick="filterCommentsFromForm()">Submit</button>
+			</td>
+		</tr>
+	</table>
 </div>
 <div class="body" id="commentList"></div>
 <div id="footer">Some of these maps generated with <a href="http://www.maptiler.com/">MapTiler</a></div>
 <div id="map"></div>
-<div id="filters" style="right: 25px;bottom: 2px;position: absolute;">
-	<form>
-		Category: <select id="typeFilterField">
-			<option value="general">General</option>
-			<option value="vam">VAM</option>
-			<option value="water">Water</option>
-			<option value="safety">Safety</option>
-			<option value="campsite">Campsite</option>
-			<option value="tip">Tip</option>
-			<option value="solos">Solos</option>
-		</select>
-		<input type="button" onclick="filterCommentsByType()" value="Submit">
-	</form>
-</div>
 </body>
 </html>

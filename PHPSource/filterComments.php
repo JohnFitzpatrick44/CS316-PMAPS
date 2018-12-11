@@ -74,9 +74,9 @@
     $query = '';
 
     if($relevant) {
-      $query = 'SELECT DISTINCT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place,RelevantFor WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND Comment.cid = RelevantFor.cid AND ' . $logic;
+      $query = 'SELECT DISTINCT Comment.cid AS cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place,RelevantFor WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND Comment.cid = RelevantFor.cid AND ' . $logic;
     } else {
-      $query = 'SELECT DISTINCT name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND ' . $logic;
+      $query = 'SELECT DISTINCT cid,name,text,type,timestamp,longitude,lattitude FROM Comment,Person,Place WHERE Comment.pid = Person.pid AND Comment.lid = Place.lid AND ' . $logic;
     }
 
     $statement = $dbh->query($query);
