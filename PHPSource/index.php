@@ -90,7 +90,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 #cbbutton{
   float: right;
-  width: 300px;
+  width: 100px;
   border: 3px solid #73AD21;
   padding: 10px;
 	}
@@ -698,7 +698,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
    </nav>
 </div>
-<div class="filter">
+<div id="cbbutton" class="filter">
 	<table>
 		<tr>
 			<th>Type</th><th>Trip</th><th>Name</th>
